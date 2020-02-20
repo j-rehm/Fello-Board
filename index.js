@@ -6,6 +6,9 @@ const path = require('path');
 const bcrypt = require('bcrypt-nodejs');
 const routes = require('./routes/routes.js');
 const cookieParser = require('cookie-parser');
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb+srv://Admin:AdminPass@felloboard-gbrvh.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
 
 const app = express();
 
