@@ -6,6 +6,9 @@ const path = require('path');
 const bcrypt = require('bcrypt-nodejs');
 const routes = require('./routes/routes.js');
 const cookieParser = require('cookie-parser');
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb+srv://Admin:AdminPass@felloboard-gbrvh.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
 
 const app = express();
 
@@ -15,6 +18,10 @@ app.use(express.static(path.join(__dirname + '/public')));
 // app.use(cookieParser('login'));
 
 app.get('/', routes.index);
+app.post('/login', routes.validateLogin);
 app.get('/test', routes.test);
+app.get('/create', routes.create);
+app.post('/create', routes.parseCreateData);
+app.get('/home', routes.home);
 
 app.listen(3000);

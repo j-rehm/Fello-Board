@@ -1,3 +1,8 @@
+html {
+background-color: gainsboro;
+text-align: center;
+}
+
 .divDrag {
     padding: 10px;
     cursor: move;
@@ -14,4 +19,51 @@
     background-color: #f1f1f1;
     text-align: center;
     border: 1px solid #d3d3d3;
+
+
+h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 42pt;
+}
+
+h2 {
+    font-family: inherit;
+    font-size: 22pt;
+}
+
+h3 {
+    font-family: inherit;
+    font-size: 20pt;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+
+input[type=password],
+input[type=text] {
+    padding:5px; 
+    border:2px solid #ccc; 
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+input[type=password]:focus,
+input[type=text]:focus {
+    border-color:#333;
+}
+
+input[type=submit] {
+    padding:5px 15px; 
+    color: white;
+    background-color: rgb(179, 56, 56); 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 100px;
+    border-radius: 100px; 
+}
+
+input[type=submit]:hover {
+    background-color: rgb(255, 0, 0);
 }

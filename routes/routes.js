@@ -7,6 +7,29 @@ exports.index = (req, res) => {
     });
 }
 
+exports.validateLogin = (req, res) => {
+    //work on this once db is created
+}
+
 exports.test = (req, res) => {
     res.render('testDIV');
+}
+
+exports.create = (req, res) => {
+    res.render('create', {
+        "title": "Create Account",
+        "username": "Username: ",
+        "password": "Password: ",
+        "fullName": "Full Name: "
+    });
+}
+
+exports.parseCreatedData = (req, res) => {
+    redirect('/home');
+}
+
+exports.home = (req, res) => {
+    res.render('home', {
+        "title": "Home Page"
+    });
 }
