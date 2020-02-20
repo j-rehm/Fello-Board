@@ -3,7 +3,9 @@ extends layout
 block content
     h1 #{title}
 
-    form(id='form' method ='post' action='/login')
+    form(id='form' method ='post' action='/create')
+        p #{fullName}
+            input(type='text' name='username' autocomplete='off' required='true')
         p #{username}
             input(type='text' name='username' autocomplete='off' required='true')
         div(class='pass')
@@ -22,7 +24,4 @@ block content
                         }
                     }
         p
-            input(id='btn' type='submit' value='Log In')
-
-    a(href='create')
-        div(class='create_account') #{noAccount}
+            input(id='btn' type='submit' value='Sign Up')
