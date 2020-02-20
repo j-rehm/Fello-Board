@@ -15,6 +15,10 @@ app.use(express.static(path.join(__dirname + '/public')));
 // app.use(cookieParser('login'));
 
 app.get('/', routes.index);
+app.post('/login', routes.validateLogin);
 app.get('/test', routes.test);
+app.get('/create', routes.create);
+app.post('/create', routes.parseCreateData);
+app.get('/home', routes.home);
 
 app.listen(3000);
