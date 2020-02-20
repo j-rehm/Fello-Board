@@ -15,5 +15,6 @@ app.use(express.static(path.join(__dirname + '/public')));
 // app.use(cookieParser('login'));
 
 app.get('/', routes.index);
+app.get('/test', routes.test);
 
 app.listen(3000);
