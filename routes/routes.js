@@ -24,8 +24,8 @@ exports.create = (req, res) => {
     });
 }
 
-exports.parseCreatedData = (req, res) => {
-    redirect('/home');
+exports.parseCreateData = (req, res) => {
+    res.redirect('/home');
 }
 
 exports.home = (req, res) => {
