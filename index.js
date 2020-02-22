@@ -2,13 +2,11 @@ const express = require('express');
 const expressSession = require('express-session');
 const pug = require('pug');
 const bodyParser = require('body-parser');
+const urlEncodedParser = bodyParser.urlencoded({extended: false});
 const path = require('path');
 const bcrypt = require('bcrypt-nodejs');
 const routes = require('./routes/routes.js');
 const cookieParser = require('cookie-parser');
-const mongoose = require('mongoose');
-
-mongoose.connect('mongodb+srv://Admin:AdminPass@felloboard-gbrvh.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
 
 const app = express();
 
@@ -18,7 +16,7 @@ app.use(express.static(path.join(__dirname + '/public')));
 // app.use(cookieParser('login'));
 
 app.get('/', routes.index);
-app.post('/login', routes.validateLogin);
+app.post('/login', urlEncodedParser, routes.validateLogin);
 app.get('/test', routes.test);
 app.get('/create', routes.create);
 app.post('/create', routes.parseCreateData);
