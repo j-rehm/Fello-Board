@@ -19,10 +19,7 @@ var UserAccount = mongoose.model('user_accounts', userAccountSchema);
 
 exports.index = (req, res) => {
     res.render('index', {
-        "title": "Login",
-        "username": "Username: ",
-        "password": "Password: ",
-        "noAccount": "Don't have an account? Click here!"
+
     });
 }
 
@@ -36,10 +33,7 @@ exports.test = (req, res) => {
 
 exports.create = (req, res) => {
     res.render('create', {
-        "title": "Create Account",
-        "username": "Username: ",
-        "password": "Password: ",
-        "fullName": "Full Name: "
+
     });
 }
 
@@ -49,6 +43,6 @@ exports.parseCreateData = (req, res) => {
 
 exports.home = (req, res) => {
     res.render('home', {
-        "title": "Home Page"
+        
     });
 }
