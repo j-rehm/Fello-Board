@@ -27,7 +27,7 @@ var UserAccount = mongoose.model('user_accounts', mongoose.Schema({
 
 exports.index = (req, res) => {
     res.render('index', {
-
+        config
     });
 }
 
@@ -41,7 +41,7 @@ exports.test = (req, res) => {
 
 exports.create = (req, res) => {
     res.render('create', {
-
+        config
     });
 }
 
@@ -55,7 +55,7 @@ exports.parseCreateData = (req, res) => {
 
 exports.home = (req, res) => {
     res.render('home', {
-        
+        config
     });
 }
 
