@@ -23,9 +23,9 @@ block content
                     }
         p
             input(id='btn' type='submit' value='Log In')
-        if #{accountExist}
+        if accountExist
             p #{config['auth'][0]}
-        if #{passNoMatch}
+        if passNoMatch
             p #{config['auth'][1]}
 
     a(href='create')
