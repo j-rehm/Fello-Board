@@ -12,13 +12,6 @@ mdb.on('error', console.error.bind(console, 'connection error:'));
 mdb.once('open', callback => {
 });
 
-// var userAccountSchema = mongoose.Schema({
-//     fullName: String,
-//     username: String,
-//     hashedPassword: String
-// });
-// var UserAccount = mongoose.model('user_accounts', userAccountSchema);
-
 var UserAccount = mongoose.model('user_accounts', mongoose.Schema({
     full_name: String,
     username: String,
@@ -33,7 +26,18 @@ exports.index = (req, res) => {
 }
 
 exports.validateLogin = (req, res) => {
-    // TODO implement after accounts can be created
+    UserAccount.findOne({"username": req.body.username}, (err, account) => {
+        if (!account) {
+            res.render('index', {
+                config,
+                "value": true
+            });
+        } else {
+            // bcrypt.compare()
+            console.log("Found account") // TODO
+        }
+    });
+    console.log(req.body);
 }
 
 exports.test = (req, res) => {
