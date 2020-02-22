@@ -43,7 +43,7 @@ exports.validateLogin = (req, res) => {
                 } else {
                     res.render('index', {
                         config,
-                        "userInvalid": false
+                        "userInvalid": true
                     });
                 }
             });
