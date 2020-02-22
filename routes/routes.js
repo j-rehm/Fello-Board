@@ -31,10 +31,22 @@ exports.validateLogin = (req, res) => {
         if (!account) {
             res.render('index', {
                 config,
-                "value": true
+                "accountExist": true
             });
         } else {
-            // bcrypt.compare()
+            bcrypt.compare(req.body.password, account.hashed_password, (err2, isValid) => {
+                if (isValid) {
+                    req.session.user = {
+                        isAuthenticated: true
+                    };
+                    res.redirect('/home');
+                } else {
+                    res.render('index', {
+                        config,
+                        "passNoMatch": true
+                    });
+                }
+            });
             console.log("Found account") // TODO
         }
     });

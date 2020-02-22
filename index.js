@@ -29,6 +29,6 @@ app.post('/login', urlEncodedParser, routes.validateLogin);
 app.get('/test', routes.test);
 app.get('/create', routes.create);
 app.post('/create', urlEncodedParser, routes.parseCreateData);
-app.get('/home', routes.home);
+app.get('/home', checkAuth, routes.home);
 
 app.listen(3000);
