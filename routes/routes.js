@@ -51,8 +51,8 @@ exports.validateLogin = (req, res) => {
     });
 }
 
-exports.test = (req, res) => {
-    res.render('testDIV');
+exports.board = (req, res) => {
+    res.render('board');
 }
 
 exports.create = (req, res) => {

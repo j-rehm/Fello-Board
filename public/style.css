@@ -3,6 +3,13 @@ background-color: gainsboro;
 text-align: center;
 }
 
+#addCardButton {
+    width: 100px;
+    height: 50px;
+    background: black;
+    color: white;
+}
+
 .divDrag {
     padding: 10px;
     cursor: move;
