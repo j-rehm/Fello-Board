@@ -10,10 +10,19 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 
+const checkAuth = (req, res, next) => {
+    if(req.session.user && req.session.user.isAuthenticated) {
+        next();
+    } else {
+        res.redirect('/');
+    }
+}
+
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname + '/views'));
 app.use(express.static(path.join(__dirname + '/public')));
-// app.use(cookieParser('login'));
+app.use(cookieParser('login'));
+
 
 app.get('/', routes.index);
 app.post('/login', urlEncodedParser, routes.validateLogin);
