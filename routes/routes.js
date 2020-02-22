@@ -11,8 +11,8 @@ exports.validateLogin = (req, res) => {
     //work on this once db is created
 }
 
-exports.test = (req, res) => {
-    res.render('testDIV');
+exports.board = (req, res) => {
+    res.render('board');
 }
 
 exports.create = (req, res) => {
