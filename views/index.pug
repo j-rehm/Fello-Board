@@ -1,13 +1,13 @@
 extends layout
 
 block content
-    h1 #{title}
+    h1 #{config['navigation'][0][0]}
 
     form(id='form' method ='post' action='/login')
-        p #{username}
+        p #{config['formData'][0]}
             input(type='text' name='username' autocomplete='off' required='true')
         div(class='pass')
-            p #{password} 
+        p #{config['formData'][1]}
                 input(id='password' type='password' name='password' autocomplete='off' required='true')
                 input(type='checkbox' onClick='togglePassword()')
                 b Show Password
@@ -25,4 +25,4 @@ block content
             input(id='btn' type='submit' value='Log In')
 
     a(href='create')
-        div(class='create_account') #{noAccount}
+        div(class='create_account') #{config['formData'][3]}
