@@ -1,11 +1,11 @@
 const bcrypt = require('bcrypt-nodejs');
 const config = require('../config');
 const fetch = require('node-fetch');
+const mongoose = require('mongoose');
 
 // Begin Mongo stuff
-const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb+srv://Admin:AdminPass@felloboard-gbrvh.mongodb.net/test?retryWrites=true&w=majority/data', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb+srv://Admin:AdminPass@felloboard-gbrvh.mongodb.net/data?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
 
 const mdb = mongoose.connection;
 mdb.on('error', console.error.bind(console, 'connection error:'));
@@ -17,11 +17,12 @@ mdb.once('open', callback => {
 //     username: String,
 //     hashedPassword: String
 // });
+// var UserAccount = mongoose.model('user_accounts', userAccountSchema);
 
 var UserAccount = mongoose.model('user_accounts', mongoose.Schema({
-    fullName: String,
+    full_name: String,
     username: String,
-    hashedPassword: String
+    hashed_password: String
 }));
 // End Mongo stuff
 
@@ -46,9 +47,8 @@ exports.create = (req, res) => {
 }
 
 exports.parseCreateData = (req, res) => {
-    bcrypt.hash(req.body.password, null, null, (err, hashedPassword) => {
-        console.log(`{req.body.fullName}, {req.body.username}, {hashedPassword}`)
-        createAccount(req.body.fullName, req.body.username, hashedPassword);
+    bcrypt.hash(req.body.password, null, null, (err, hashed_password) => {
+        createAccount(req.body.full_name, req.body.username, hashed_password);
         res.redirect('/');
     });
 }
@@ -60,11 +60,12 @@ exports.home = (req, res) => {
 }
 
 // Helper methods
-const createAccount = (fullName, username, hashedPassword) => {
+const createAccount = (full_name, username, hashed_password) => {
+    console.log(`${full_name}, ${username}, ${hashed_password}`)
     var userAccount = new UserAccount({
-        fullName,
+        full_name,
         username,
-        hashedPassword
+        hashed_password
     });
     userAccount.save((err, account) => {
         if (err) return console.error(err);
