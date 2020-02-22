@@ -1,3 +1,7 @@
+const bcrypt = require('bcrypt-nodejs');
+const config = require('../config');
+const fetch = require('node-fetch');
+
 // Begin Mongo stuff
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -38,7 +42,7 @@ exports.create = (req, res) => {
 }
 
 exports.parseCreateData = (req, res) => {
-    res.redirect('/home');
+    
 }
 
 exports.home = (req, res) => {
