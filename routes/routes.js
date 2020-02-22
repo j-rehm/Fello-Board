@@ -22,7 +22,7 @@ var UserAccount = mongoose.model('user_accounts', mongoose.Schema({
 exports.index = (req, res) => {
     res.render('index', {
         config,
-        "accountExist": false
+        "userInvalid": false
     });
 }
 
@@ -31,7 +31,7 @@ exports.validateLogin = (req, res) => {
         if (!account) {
             res.render('index', {
                 config,
-                "accountExist": true
+                "userInvalid": true
             });
         } else {
             bcrypt.compare(req.body.password, account.hashed_password, (err2, isValid) => {
@@ -43,7 +43,7 @@ exports.validateLogin = (req, res) => {
                 } else {
                     res.render('index', {
                         config,
-                        "passNoMatch": true
+                        "userInvalid": false
                     });
                 }
             });
