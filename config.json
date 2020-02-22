@@ -1,0 +1,17 @@
+{
+    "navigation":[
+        ["Log In", "/"],
+        ["Create Your Account", "create"],
+        ["Welcome", "home"]
+    ],
+    "formData":[
+        "Username: ", 
+        "Password: ", 
+        "Full Name:",
+        "Don't have an account? Click here!"
+    ],
+    "auth":[
+        "Account does not exist.",
+        "Password does not match."
+    ]
+}
