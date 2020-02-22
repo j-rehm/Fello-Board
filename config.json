@@ -10,7 +10,8 @@
         "Full Name:",
         "Don't have an account? Click here!"
     ],
-    "noAccount":[
-        "Account does not exist"
+    "auth":[
+        "Account does not exist.",
+        "Password does not match."
     ]
 }

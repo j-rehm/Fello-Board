@@ -21,8 +21,16 @@ block content
                             elem.type = 'password';
                         }
                     }
+                script(type='text/javascript').
+                    if (config.passNoMatch){
+                        p = config['auth'][1]
+                    }
         p
             input(id='btn' type='submit' value='Log In')
+        script(type='text/javascript').
+            if (config.accountExist){
+                p = config['auth'][0]
+            }
 
     a(href='create')
         div(class='create_account') #{config['formData'][3]}
