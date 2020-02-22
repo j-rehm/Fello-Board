@@ -21,7 +21,8 @@ var UserAccount = mongoose.model('user_accounts', mongoose.Schema({
 
 exports.index = (req, res) => {
     res.render('index', {
-        config
+        config,
+        "accountExist": false
     });
 }
 
