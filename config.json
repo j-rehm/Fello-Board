@@ -8,7 +8,7 @@
         "Username: ", 
         "Password: ", 
         "Full Name:",
-        "Don't have an account? Click here!",
+        "Don't have an account? Click here!"
     ],
     "noAccount":[
         "Account does not exist"
