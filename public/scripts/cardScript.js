@@ -39,24 +39,48 @@ const drag = (elmnt) => {
 
 var counter = 0;
 
+const editField = (elmnop) => {
+
+}
+
 const addNewCard = (e) => {
     // Creates the overall child DIV
     let childDiv = document.createElement("DIV");
     
     // Connect created DIV to parent div
     parentDiv.appendChild(childDiv);
+
+    
     // Adds class tag and id to "childDiv"
     childDiv.classList.add('divInfo');
     childDiv.id = `info${counter}`;
     // Setting min width and height
     childDiv.style.height = '100px';
     childDiv.style.width = '100px';
-
+    
     // Creates the drag header DIV
     let dragDiv = document.createElement("DIV");
 
+    // Add click events to header and description DIVs
+    let header = document.createElement("P");
+    let desc = document.createElement("P");
+
     // Connects the dragDiv to the childDiv
     childDiv.appendChild(dragDiv);
+
+    // Adds Title and Description tags to header and description DIVs
+    dragDiv.appendChild(header);
+    childDiv.appendChild(desc);
+
+    header.style.margin = "0";
+    header.style.padding = "0";
+    header.style.height = "5px";
+    desc.style.margin = "0";
+    desc.style.padding = "0";
+    desc.style.height = "5px";
+
+    header.onclick = editField;
+
     // Adds the class tag and id to "dragDiv"
     dragDiv.classList.add('divDrag');
     dragDiv.id = `info${counter}Header`;
