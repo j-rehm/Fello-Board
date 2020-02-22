@@ -12,13 +12,17 @@ mdb.on('error', console.error.bind(console, 'connection error:'));
 mdb.once('open', callback => {
 });
 
-var userAccountSchema = mongoose.Schema({
+// var userAccountSchema = mongoose.Schema({
+//     fullName: String,
+//     username: String,
+//     hashedPassword: String
+// });
+
+var UserAccount = mongoose.model('user_accounts', mongoose.Schema({
     fullName: String,
     username: String,
     hashedPassword: String
-});
-
-var UserAccount = mongoose.model('user_accounts', userAccountSchema);
+}));
 // End Mongo stuff
 
 exports.index = (req, res) => {
@@ -42,7 +46,11 @@ exports.create = (req, res) => {
 }
 
 exports.parseCreateData = (req, res) => {
-    
+    bcrypt.hash(req.body.password, null, null, (err, hashedPassword) => {
+        console.log(`{req.body.fullName}, {req.body.username}, {hashedPassword}`)
+        createAccount(req.body.fullName, req.body.username, hashedPassword);
+        res.redirect('/');
+    });
 }
 
 exports.home = (req, res) => {
@@ -50,3 +58,15 @@ exports.home = (req, res) => {
         
     });
 }
+
+// Helper methods
+const createAccount = (fullName, username, hashedPassword) => {
+    var userAccount = new UserAccount({
+        fullName,
+        username,
+        hashedPassword
+    });
+    userAccount.save((err, account) => {
+        if (err) return console.error(err);
+    });
+};
