@@ -47,10 +47,8 @@ exports.validateLogin = (req, res) => {
                     });
                 }
             });
-            console.log("Found account") // TODO
         }
     });
-    console.log(req.body);
 }
 
 exports.test = (req, res) => {
