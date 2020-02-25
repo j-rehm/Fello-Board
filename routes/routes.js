@@ -84,6 +84,8 @@ exports.home = (req, res) => {
         });
     });
     // findAccount(req.session.user.username, (err, account) => {
+    //     console.log(account);
+    //     console.log(err);
     //     res.render('home', {
     //         config,
     //         name: account.full_name
@@ -107,8 +109,9 @@ const createAccount = (full_name, username, hashed_password) => {
 const findAccount = async (username, callback) => {
     UserAccount.findOne({"username": username}, (err, account) => {
         if (err) {
-            return callback(err);
+            console.log(err);
+            return callback(new Error(`Could not find account '${username}'`));
         }
-        callback(account);
+        return callback(account);
     });
 }
