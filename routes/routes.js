@@ -37,13 +37,14 @@ exports.validateLogin = (req, res) => {
             bcrypt.compare(req.body.password, account.hashed_password, (err2, isValid) => {
                 if (isValid) {
                     req.session.user = {
+                        username: req.body.username,
                         isAuthenticated: true
                     };
                     res.redirect('/home');
                 } else {
                     res.render('index', {
                         config,
-                        "userInvalid": false
+                        "userInvalid": true
                     });
                 }
             });
@@ -62,16 +63,27 @@ exports.create = (req, res) => {
 }
 
 exports.parseCreateData = (req, res) => {
-    bcrypt.hash(req.body.password, null, null, (err, hashed_password) => {
-        createAccount(req.body.full_name, req.body.username, hashed_password);
-        res.redirect('/');
+    UserAccount.findOne({"username": req.body.username}, (err, account) => {
+        if(!account) {
+            bcrypt.hash(req.body.password, null, null, (err, hashed_password) => {
+                createAccount(req.body.full_name, req.body.username, hashed_password);
+                res.redirect('/');
+            });
+        } else {
+            console.log("Username is already taken!");
+            res.redirect('/create'); //TODO error message? Tell Chris
+        }
     });
 }
 
 exports.home = (req, res) => {
-    res.render('home', {
-        config
+    UserAccount.findOne({"username": req.session.user.username}, (err, account) => {
+        res.render('home', {
+            config,
+            name: account.full_name
+        });
     });
+    
 }
 
 // Helper methods

@@ -39,24 +39,55 @@ const drag = (elmnt) => {
 
 var counter = 0;
 
+const editField = (e) => {
+    // GAIGE CODE HERE
+}
+
 const addNewCard = (e) => {
     // Creates the overall child DIV
     let childDiv = document.createElement("DIV");
     
     // Connect created DIV to parent div
     parentDiv.appendChild(childDiv);
+
+    
     // Adds class tag and id to "childDiv"
     childDiv.classList.add('divInfo');
     childDiv.id = `info${counter}`;
     // Setting min width and height
-    childDiv.style.height = '100px';
-    childDiv.style.width = '100px';
-
+    childDiv.style.minHeight = '200px';
+    childDiv.style.minWidth = '300px';
+    
     // Creates the drag header DIV
     let dragDiv = document.createElement("DIV");
 
+    // Add click events to header and description DIVs
+    let header = document.createElement("P");
+    let desc = document.createElement("P");
+
+    // Adds class and id name to "header" and "desc"
+    header.classList.add('cardHeader');
+    header.id = `pHeader${counter}`;
+    desc.classList.add('cardDesc');
+    desc.id = `pDesc${counter}`;
+
     // Connects the dragDiv to the childDiv
     childDiv.appendChild(dragDiv);
+
+    // Adds Title and Description tags to header and description DIVs
+    dragDiv.appendChild(header);
+    childDiv.appendChild(desc);
+
+    header.style.height = "15px";
+    header.style.margin = '0px 10px 0px 10px';
+    header.style.border = '2px solid black';
+    desc.style.height = "15px";
+    desc.style.margin = '10px 10px 0px 10px';
+    desc.style.border = '2px solid black';
+
+    header.onclick = editField;
+    desc.onclick = editField;
+
     // Adds the class tag and id to "dragDiv"
     dragDiv.classList.add('divDrag');
     dragDiv.id = `info${counter}Header`;
