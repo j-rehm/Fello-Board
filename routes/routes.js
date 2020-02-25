@@ -83,7 +83,12 @@ exports.home = (req, res) => {
             name: account.full_name
         });
     });
-    
+    // findAccount(req.session.user.username, (err, account) => {
+    //     res.render('home', {
+    //         config,
+    //         name: account.full_name
+    //     });
+    // });
 }
 
 // Helper methods
@@ -98,3 +103,12 @@ const createAccount = (full_name, username, hashed_password) => {
         if (err) return console.error(err);
     });
 };
+
+const findAccount = async (username, callback) => {
+    UserAccount.findOne({"username": username}, (err, account) => {
+        if (err) {
+            return callback(err);
+        }
+        callback(account);
+    });
+}
