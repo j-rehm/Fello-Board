@@ -2,7 +2,9 @@
     "navigation":[
         ["Log In", "/"],
         ["Create Your Account", "create"],
-        ["Welcome", "home"]
+        ["Welcome", "home"],
+        ["Board", "board"],
+        ["Edit Your Account", "edit"]
     ],
     "formData":[
         "Username: ", 
@@ -11,6 +13,7 @@
         "Don't have an account? Click here!"
     ],
     "auth":[
-        "Username or Password does not match."
+        "Username or Password does not match.",
+        "Username already taken."
     ]
 }

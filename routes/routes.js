@@ -62,6 +62,12 @@ exports.create = (req, res) => {
     });
 }
 
+exports.edit = (req, res) => {
+    res.render('edit', {
+        config
+    });
+}
+
 exports.parseCreateData = (req, res) => {
     UserAccount.findOne({"username": req.body.username}, (err, account) => {
         if(!account) {
@@ -71,7 +77,10 @@ exports.parseCreateData = (req, res) => {
             });
         } else {
             console.log("Username is already taken!");
-            res.redirect('/create'); //TODO error message? Tell Chris
+            res.render('create', {
+                config, 
+                "userTaken": true
+            }); //TODO error message? Tell Chris
         }
     });
 }

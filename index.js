@@ -42,5 +42,6 @@ app.post('/login', urlEncodedParser, routes.validateLogin);
 app.get('/create', routes.create);
 app.post('/create', urlEncodedParser, routes.parseCreateData);
 app.get('/home', checkAuth, routes.home);
+app.get('/edit', routes.edit);
 
 app.listen(3000);
