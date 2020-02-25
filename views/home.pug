@@ -2,3 +2,8 @@ extends layout
 
 block content 
     h1 #{config['navigation'][2][0]}, #{name}
+
+    a(href=config.navigation[3][1])
+        div(class='board') Create a new Fello Board
+    a(href=config.navigation[4][1])
+        div(class='edit') Edit your Account
