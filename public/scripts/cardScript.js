@@ -43,13 +43,18 @@ const editField = (e) => {
     // GAIGE CODE HERE
 }
 
+const checkIfList = (e) => {
+    console.log(e);
+    console.log('poop');
+    e.target.onmousemove = null;
+}
+
 const addNewCard = (e) => {
     // Creates the overall child DIV
     let childDiv = document.createElement("DIV");
     
     // Connect created DIV to parent div
     parentDiv.appendChild(childDiv);
-
     
     // Adds class tag and id to "childDiv"
     childDiv.classList.add('divInfo');
@@ -60,20 +65,20 @@ const addNewCard = (e) => {
     
     // Creates the drag header DIV
     let dragDiv = document.createElement("DIV");
-
+    
     // Add click events to header and description DIVs
     let header = document.createElement("P");
     let desc = document.createElement("P");
-
+    
     // Adds class and id name to "header" and "desc"
     header.classList.add('cardHeader');
     header.id = `pHeader${counter}`;
     desc.classList.add('cardDesc');
     desc.id = `pDesc${counter}`;
-
+    
     // Connects the dragDiv to the childDiv
     childDiv.appendChild(dragDiv);
-
+    
     // Adds Title and Description tags to header and description DIVs
     dragDiv.appendChild(header);
     childDiv.appendChild(desc);
@@ -84,16 +89,24 @@ const addNewCard = (e) => {
     desc.style.height = "15px";
     desc.style.margin = '10px 10px 0px 10px';
     desc.style.border = '2px solid black';
-
+    
     header.onclick = editField;
     desc.onclick = editField;
-
+    
     // Adds the class tag and id to "dragDiv"
     dragDiv.classList.add('divDrag');
     dragDiv.id = `info${counter}Header`;
-
+    
     // Adds the drag function to the cards
     var divInfos = document.getElementsByClassName("divInfo");
+    
+    // Adds a method that runs every time it detects the DIV being resized
+    console.log(childDiv);
+    childDiv.onmousedown = (e) => {
+        if (childDiv.onmousedown != null && childDiv.onmousemove == null) {
+            childDiv.onmousemove = checkIfList;
+        }
+    }
     
     [].forEach.call(divInfos, function (divInfo) {
         drag(document.getElementById(`${divInfo.id}`));
