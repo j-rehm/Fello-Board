@@ -20,6 +20,7 @@ var UserAccount = mongoose.model('user_accounts', mongoose.Schema({
 // End Mongo stuff
 
 exports.index = (req, res) => {
+    destroySession(req);
     res.render('index', {
         config,
         "userInvalid": false
@@ -36,10 +37,7 @@ exports.validateLogin = (req, res) => {
         } else {
             bcrypt.compare(req.body.password, account.hashed_password, (err2, isValid) => {
                 if (isValid) {
-                    req.session.user = {
-                        username: req.body.username,
-                        isAuthenticated: true
-                    };
+                    createSession(req);
                     res.redirect('/home');
                 } else {
                     res.render('index', {
@@ -80,7 +78,7 @@ exports.parseCreateData = (req, res) => {
             res.render('create', {
                 config, 
                 "userTaken": true
-            }); //TODO error message? Tell Chris
+            });
         }
     });
 }
@@ -113,6 +111,21 @@ const createAccount = (full_name, username, hashed_password) => {
     userAccount.save((err, account) => {
         if (err) return console.error(err);
     });
+};
+
+const createSession = req => {
+    req.session.user = {
+        username: req.body.username,
+        isAuthenticated: true
+    };
+    // console.log(req.session);
+};
+
+const destroySession = req => {
+    // console.log(req.session);
+    if (req.session.user) {
+        req.session.destroy();
+    }
 };
 
 const findAccount = async (username, callback) => {
