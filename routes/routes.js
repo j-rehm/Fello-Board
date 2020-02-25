@@ -20,6 +20,7 @@ var UserAccount = mongoose.model('user_accounts', mongoose.Schema({
 // End Mongo stuff
 
 exports.index = (req, res) => {
+    destroySession(req);
     res.render('index', {
         config,
         "userInvalid": false
@@ -36,10 +37,7 @@ exports.validateLogin = (req, res) => {
         } else {
             bcrypt.compare(req.body.password, account.hashed_password, (err2, isValid) => {
                 if (isValid) {
-                    req.session.user = {
-                        username: req.body.username,
-                        isAuthenticated: true
-                    };
+                    createSession(req);
                     res.redirect('/home');
                 } else {
                     res.render('index', {
@@ -80,7 +78,7 @@ exports.parseCreateData = (req, res) => {
             res.render('create', {
                 config, 
                 "userTaken": true
-            }); //TODO error message? Tell Chris
+            });
         }
     });
 }
@@ -93,6 +91,8 @@ exports.home = (req, res) => {
         });
     });
     // findAccount(req.session.user.username, (err, account) => {
+    //     console.log(account);
+    //     console.log(err);
     //     res.render('home', {
     //         config,
     //         name: account.full_name
@@ -113,11 +113,27 @@ const createAccount = (full_name, username, hashed_password) => {
     });
 };
 
+const createSession = req => {
+    req.session.user = {
+        username: req.body.username,
+        isAuthenticated: true
+    };
+    // console.log(req.session);
+};
+
+const destroySession = req => {
+    // console.log(req.session);
+    if (req.session.user) {
+        req.session.destroy();
+    }
+};
+
 const findAccount = async (username, callback) => {
     UserAccount.findOne({"username": username}, (err, account) => {
         if (err) {
-            return callback(err);
+            console.log(err);
+            return callback(new Error(`Could not find account '${username}'`));
         }
-        callback(account);
+        return callback(account);
     });
 }
