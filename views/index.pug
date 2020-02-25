@@ -7,7 +7,7 @@ block content
         p #{config['formData'][0]}
             input(type='text' name='username' autocomplete='off' required='true')
         div(class='pass')
-        p #{config['formData'][1]}
+            p #{config['formData'][1]}
                 input(id='password' type='password' name='password' autocomplete='off' required='true')
                 input(type='checkbox' onClick='togglePassword()')
                 b Show Password

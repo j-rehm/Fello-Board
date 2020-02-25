@@ -73,3 +73,7 @@ input[type=submit] {
 input[type=submit]:hover {
     background-color: rgb(255, 0, 0);
 }
+
+.pass {
+    margin: 0px 0px 0px 130px;
+}
