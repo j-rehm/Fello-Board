@@ -4,10 +4,20 @@ text-align: center;
 }
 
 #addCardButton {
-    width: 100px;
-    height: 50px;
-    background: black;
+    padding:5px 15px; 
     color: white;
+    display: block;
+    background-color: steelblue; 
+    font-size: xx-large;
+    border:0 none;
+    cursor:pointer;
+    width: 200px;
+    margin: 50px auto;
+    border-radius: 100px; 
+}
+
+#addCardButton:hover {
+    background-color: rgb(94, 206, 251);
 }
 
 .divDrag {
@@ -76,4 +86,42 @@ input[type=submit]:hover {
 
 .pass {
     margin: 0px 0px 0px 130px;
+}
+
+#error {
+    color: rgb(255, 0, 0);
+}
+
+.board {
+    padding:5px 15px; 
+    color: white;
+    display: block;
+    background-color: steelblue; 
+    font-size: xx-large;
+    border:0 none;
+    cursor:pointer;
+    width: 200px;
+    margin: 50px auto;
+    border-radius: 100px;   
+}
+
+.board:hover {
+    background-color: rgb(94, 206, 251);
+}
+
+.edit {
+    padding:5px 15px; 
+    color: white;
+    display: block;
+    background-color: darkseagreen; 
+    font-size: xx-large;
+    border:0 none;
+    cursor:pointer;
+    width: 150px;
+    margin: 50px auto;
+    border-radius: 100px;   
+}
+
+.edit:hover {
+    background-color: darkslategray;
 }
