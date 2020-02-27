@@ -152,9 +152,6 @@ const addNewCard = (e) => {
 
     divInfo.style.height = `${childDiv.getBoundingClientRect().height - dragDiv.getBoundingClientRect().height}px`;
 
-    console.log(childDiv.getBoundingClientRect().height);
-    console.log(childDiv.getBoundingClientRect().width);
-
     // Adds the drag function to the cards
     var divInfos = document.getElementsByClassName("divInfo");
     
