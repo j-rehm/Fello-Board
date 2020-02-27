@@ -2,7 +2,11 @@ extends layout
 
 block content
     //Can use same class names for color stuff, but id's need to be unique
+    div(id='addCardButton') Add Card
+    div(id='saveButton') Save
+    br
     div(id="parentDiv")
-        div(id='addCardButton') Add Card
-        br
     div(id="editBackground" style="color: black; width: 100%; height: 100%;")
+
+    script(src='scripts/cardScript.js')
+    script(src='scripts/boardSaving.js')
