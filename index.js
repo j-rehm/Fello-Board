@@ -12,9 +12,23 @@ const urlEncodedParser = bodyParser.urlencoded({extended: false});
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname + '/views'));
-app.use(express.json());
 app.use(express.static(path.join(__dirname + '/public')));
 app.use(cookieParser('login'));
+
+// application/json content type (use JSON.Stringify())
+app.use(express.json());
+
+// plain/text content type
+app.use(function(req, res, next){
+    if (req.is('text/*')) {
+      req.text = '';
+      req.setEncoding('utf8');
+      req.on('data', function(chunk){ req.text += chunk });
+      req.on('end', next);
+    } else {
+      next();
+    }
+});
 
 app.use(expressSession({
     secret: 'FelloBoardUserSessionPassword',

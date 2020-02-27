@@ -79,8 +79,7 @@ exports.edit = (req, res) => {
 };
 
 exports.parseBoardData = (req, res) => {
-    // db.deleteBoard(0);
-    db.createBoard(0, "Test Board", req.session.user.username, req.body.boardData);
+    db.createBoard(0, "Test Board", req.session.user.username, req.text);
     res.send();
 };
 

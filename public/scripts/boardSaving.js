@@ -7,24 +7,9 @@ const sendBoardData = () => {
 
     console.log("Sending board data...");
 
-    // console.log(JSON.stringify({
-    //     boardData: stringBoardData
-    // }));
-
-    xhr.open("POST", '/board', true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({
-        boardData: stringBoardData
-    }));
-
-    // fetch("/board", {
-    //   method: "POST", 
-    //   body: JSON.stringify({
-    //       boardData: stringBoardData
-    //   })
-    // }).then(res => {
-    //   console.log("Request complete! Response: ", res);
-    // });
+    xhr.open("POST", '/board');
+    xhr.setRequestHeader('Content-Type', 'text/plain;charset=UTF-8');
+    xhr.send(stringBoardData);
 };
 
 saveButton.onclick = sendBoardData;
