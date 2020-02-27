@@ -84,20 +84,12 @@ exports.parseCreateData = (req, res) => {
 }
 
 exports.home = (req, res) => {
-    UserAccount.findOne({"username": req.session.user.username}, (err, account) => {
+    findAccount(req.session.user.username, (account) => {
         res.render('home', {
             config,
             name: account.full_name
         });
     });
-    // findAccount(req.session.user.username, (err, account) => {
-    //     console.log(account);
-    //     console.log(err);
-    //     res.render('home', {
-    //         config,
-    //         name: account.full_name
-    //     });
-    // });
 }
 
 // Helper methods
@@ -113,6 +105,16 @@ const createAccount = (full_name, username, hashed_password) => {
     });
 };
 
+const findAccount = async (username, callback) => {
+    UserAccount.findOne({"username": username}, (err, account) => {
+        if (err) {
+            console.log(err);
+            return
+        }
+        return callback(account);
+    });
+}
+
 const createSession = req => {
     req.session.user = {
         username: req.body.username,
@@ -127,13 +129,3 @@ const destroySession = req => {
         req.session.destroy();
     }
 };
-
-const findAccount = async (username, callback) => {
-    UserAccount.findOne({"username": username}, (err, account) => {
-        if (err) {
-            console.log(err);
-            return callback(new Error(`Could not find account '${username}'`));
-        }
-        return callback(account);
-    });
-}
