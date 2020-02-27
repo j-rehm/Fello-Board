@@ -4,6 +4,15 @@ html
         link(href='style.css' rel='stylesheet')
     body
         header
+            ul
+                li
+                    h3(class='title') #{config['navigation'][6][0]}      
+                li
+                    a(href=config.navigation[3][1]) #{config.navigation[1][1]}
+                li
+                    a(href=config.navigation[4][1]) #{config.navigation[4][1]}
+                li(style="float:right")
+                    a(href=config.navigation[5][1]) #{config.navigation[5][1]}
         section
             block content
             script(src='scripts/cardScript.js')

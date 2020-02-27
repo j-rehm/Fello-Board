@@ -51,7 +51,9 @@ exports.validateLogin = (req, res) => {
 }
 
 exports.board = (req, res) => {
-    res.render('board');
+    res.render('board', {
+        config
+    });
 }
 
 exports.create = (req, res) => {
@@ -64,6 +66,10 @@ exports.edit = (req, res) => {
     res.render('edit', {
         config
     });
+}
+
+exports.logout = (req, res) => {
+    res.redirect('/');
 }
 
 exports.parseCreateData = (req, res) => {
