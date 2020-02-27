@@ -40,10 +40,6 @@ exports.create = (req, res) => {
     });
 };
 
-exports.logout = (req, res) => {
-    res.redirect('/');
-};
-
 exports.parseCreateData = (req, res) => {
     db.findAccount(req.body.username, (account) => {
         if(!account) {
