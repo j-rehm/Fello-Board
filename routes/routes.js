@@ -40,6 +40,10 @@ exports.create = (req, res) => {
     });
 }
 
+exports.logout = (req, res) => {
+    res.redirect('/');
+}
+
 exports.parseCreateData = (req, res) => {
     db.findAccount(req.body.username, (account) => {
         if(!account) {
@@ -67,7 +71,9 @@ exports.home = (req, res) => {
 }
 
 exports.board = (req, res) => {
-    res.render('board');
+    res.render('board', {
+        config
+    });
 }
 
 exports.edit = (req, res) => {

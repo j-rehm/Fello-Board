@@ -1,9 +1,14 @@
 extends layout
 
 block content 
-    h1 #{config['navigation'][2][0]}, #{name}
 
-    a(href=config.navigation[3][1])
-        div(class='board') Create a new Fello Board
-    a(href=config.navigation[4][1])
-        div(class='edit') Edit your Account
+    //- div(class='flex_container')
+    //-     h3(class='title') #{config['navigation'][6][0]}      
+    //-     a(href=config.navigation[3][1])
+    //-         div(class='button') Create a new Fello Board
+    //-     a(href=config.navigation[4][1])
+    //-         div(class='button') Edit your Account
+    //-     a(href=config.navigation[5][0])
+    //-         div(class='button') Logout of your Account
+
+    h1 #{config['navigation'][2][0]}, #{name}

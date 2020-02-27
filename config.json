@@ -4,7 +4,9 @@
         ["Create Your Account", "create"],
         ["Welcome", "home"],
         ["Board", "board"],
-        ["Edit Your Account", "edit"]
+        ["Edit Your Account", "edit"],
+        ["", "logout"],
+        ["Fello Board", ""]
     ],
     "formData":[
         "Username: ", 
