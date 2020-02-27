@@ -15,7 +15,7 @@ const drag = (elmnt) => {
         document.onmousemove = elementDrag;
     }
     
-    elmnt.children[0].onmousedown = dragMouseDown;
+    document.getElementById(`${elmnt.id}Header`).onmousedown = dragMouseDown;
     
     const elementDrag = (e) => {
         e = e || window.event;
@@ -28,8 +28,8 @@ const drag = (elmnt) => {
         pos4 = e.clientY;
 
         // set the element's new position:
-        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        elmnt.parentElement.style.top = (elmnt.parentElement.offsetTop - pos2) + "px";
+        elmnt.parentElement.style.left = (elmnt.parentElement.offsetLeft - pos1) + "px";
     }
     
     const closeDragElement = () => {
@@ -74,80 +74,101 @@ const editField = (e) => {
     }
 }
 
+const checkIfList = (entry) => {
+    const cr = entry.contentRect;
+    // Resizes the divInfo element
+    if (entry.target.getBoundingClientRect().height > 325) {
+        entry.target.children[1].style.height = `${entry.target.getBoundingClientRect().height - entry.target.children[0].getBoundingClientRect().height}px`;
+    }
+    if (cr.height >= 600 && cr.width >= 1000) {
+        console.log(entry.target);
+    }
+}
+
 const addNewCard = (e) => {
     // Create the card div
-    let cardDiv = document.createElement("DIV");
+    let childDiv = document.createElement("DIV");
 
     // Connect created DIV to parent div
-    parentDiv.appendChild(cardDiv);
-
-    // Adds the class tag and id to cardDiv
-    cardDiv.classList.add("divCard");
-    cardDiv.id = `card${counter}`;
+    parentDiv.appendChild(childDiv);
+    
+    // Adds class tag and id to "childDiv"
+    childDiv.classList.add('divChild');
+    childDiv.id = `divChild${counter}`;
     // Setting min width and height
-    cardDiv.style.minHeight = '220px';
-    cardDiv.style.minWidth = '320px';
-    cardDiv.style.width = '320px';
-    cardDiv.style.height = '220px';
+    childDiv.style.minHeight = '301px';
+    childDiv.style.minWidth = '322px';
+    childDiv.style.padding = '0px';
+    
+    let divInfo = document.createElement("DIV");
+    divInfo.classList.add('divInfo');
+    divInfo.id = `info${counter}`;
 
+    divInfo.style.minHeight = '185px';
+    divInfo.style.minWidth = '300px';
+    divInfo.style.width = childDiv.style.width;
+    
     // Creates the drag header DIV
-    let headerDiv = document.createElement("DIV");
-
-    // Connects the headerDiv to the cardDiv
-    cardDiv.appendChild(headerDiv);
-
-    // Adds the class tag and id to "headerDiv"
-    headerDiv.classList.add('divHeader');
-    headerDiv.id = `header${counter}`;
-    // Setting min width and height
-    headerDiv.style.minHeight = '20px';
-    headerDiv.style.minWidth = '300px';
-    headerDiv.style.width = '300px';
-    headerDiv.style.height = '20px';
-
-    // Creates the description DIV
-    let descDiv = document.createElement("DIV");
-
-    // Connects the descDiv to the cardDiv
-    cardDiv.appendChild(descDiv);
-
-    // Adds class tag and id to "descDiv"
-    descDiv.classList.add('divInfo');
-    descDiv.id = `info${counter}`;
-    // Setting min width and height
-    descDiv.style.minHeight = '200px';
-    descDiv.style.minWidth = '300px';
-    descDiv.style.width = '300px';
-    descDiv.style.height = '200px';
-
+    let dragDiv = document.createElement("DIV");
+    
     // Add click events to header and description DIVs
     let header = document.createElement("P");
     let desc = document.createElement("P");
-
-    // Adds Title and Description tags to header and description DIVs
-    headerDiv.appendChild(header);
-    descDiv.appendChild(desc);
-
+    
     // Adds class and id name to "header" and "desc"
     header.classList.add('cardHeader');
     header.id = `pHeader${counter}`;
     desc.classList.add('cardDesc');
     desc.id = `pDesc${counter}`;
-
+    
+    // Connects the dragDiv to the childDiv
+    childDiv.appendChild(dragDiv);
+    childDiv.appendChild(divInfo);
+    
+    // Adds Title and Description tags to header and description DIVs
+    dragDiv.appendChild(header);
+    divInfo.appendChild(desc);
+    
     header.style.height = "15px";
-    header.style.margin = '0px 10px 0px 10px';
+    header.style.margin = '5px';
+    header.style.padding = '0px';
     header.style.border = '2px solid black';
     desc.style.height = "15px";
-    desc.style.margin = '0px 10px 0px 10px';
+    desc.style.margin = '5px';
+    desc.style.padding = '0px';
     desc.style.border = '2px solid black';
-
+    
     header.onclick = editField;
     desc.onclick = editField;
+    
+    // Adds the class tag and id to "dragDiv"
+    dragDiv.classList.add('divDrag');
+    dragDiv.id = `info${counter}Header`;
+    
+    dragDiv.style.minHeight = '15px';
+    dragDiv.style.minWidth = '300px';
+    dragDiv.style.width = childDiv.style.width;
+    dragDiv.style.height = '52px';
+
+    divInfo.style.height = `${childDiv.getBoundingClientRect().height - dragDiv.getBoundingClientRect().height}px`;
+
+    console.log(childDiv.getBoundingClientRect().height);
+    console.log(childDiv.getBoundingClientRect().width);
 
     // Adds the drag function to the cards
-    var cardDivs = document.getElementsByClassName("divCard");
+    var divInfos = document.getElementsByClassName("divInfo");
     
-    [].forEach.call(cardDivs, function (divInfo) {
+    // Adds a method that runs every time it detects the DIV being resized
+    var ro = new ResizeObserver( entries => {
+        for (let entry of entries) {
+            checkIfList(entry);
+        }
+    });
+    
+    // Observe one or multiple elements
+    ro.observe(childDiv);
+    
+    [].forEach.call(divInfos, function (divInfo) {
         drag(document.getElementById(`${divInfo.id}`));
     });
 

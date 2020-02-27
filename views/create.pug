@@ -8,6 +8,9 @@ block content
             input(type='text' name='full_name' autocomplete='off' required='true')
         p #{config['formData'][0]}
             input(type='text' name='username' autocomplete='off' required='true')
+            if userTaken
+                p(id="error") #{config['auth'][1]}
+
         div(class='pass')
             p #{config['formData'][1]}
                 input(id='password' type='password' name='password' autocomplete='off' required='true')
