@@ -46,7 +46,7 @@ const editField = (e) => {
 const checkIfList = (entry) => {
     const cr = entry.contentRect;
     // Resizes the divInfo element
-    if (entry.target.getBoundingClientRect().height > 301) {
+    if (entry.target.getBoundingClientRect().height > 325) {
         entry.target.children[1].style.height = `${entry.target.getBoundingClientRect().height - entry.target.children[0].getBoundingClientRect().height}px`;
     }
     if (cr.height >= 600 && cr.width >= 1000) {
@@ -65,8 +65,8 @@ const addNewCard = (e) => {
     childDiv.classList.add('divChild');
     childDiv.id = `divChild${counter}`;
     // Setting min width and height
-    childDiv.style.minHeight = '200px';
-    childDiv.style.minWidth = '300px';
+    childDiv.style.minHeight = '301px';
+    childDiv.style.minWidth = '322px';
     childDiv.style.padding = '0px';
     
     let divInfo = document.createElement("DIV");
@@ -99,10 +99,12 @@ const addNewCard = (e) => {
     divInfo.appendChild(desc);
     
     header.style.height = "15px";
-    header.style.margin = '0px 10px 0px 10px';
+    header.style.margin = '5px';
+    header.style.padding = '0px';
     header.style.border = '2px solid black';
     desc.style.height = "15px";
-    desc.style.margin = '10px 10px 0px 10px';
+    desc.style.margin = '5px';
+    desc.style.padding = '0px';
     desc.style.border = '2px solid black';
     
     header.onclick = editField;
@@ -118,6 +120,9 @@ const addNewCard = (e) => {
     dragDiv.style.height = '52px';
 
     divInfo.style.height = `${childDiv.getBoundingClientRect().height - dragDiv.getBoundingClientRect().height}px`;
+
+    console.log(childDiv.getBoundingClientRect().height);
+    console.log(childDiv.getBoundingClientRect().width );
 
     // Adds the drag function to the cards
     var divInfos = document.getElementsByClassName("divInfo");
