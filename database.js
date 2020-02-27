@@ -14,6 +14,12 @@ var UserAccount = mongoose.model('user_accounts', mongoose.Schema({
     hashed_password: String
 }));
 
+var Board = mongoose.model('boards', mongoose.Schema({
+    name: String,
+    users: [String],
+    htmlData: String
+}));
+
 /**
  * Creates a user account and stores it in the database
  * @param {string} full_name Given full name of the account to be created
