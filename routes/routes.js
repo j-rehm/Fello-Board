@@ -1,7 +1,7 @@
 const config = require('../config');
 const fetch = require('node-fetch');
 const bcrypt = require('bcrypt-nodejs');
-const db = require('../database.js')
+const db = require('../database.js');
 
 exports.index = (req, res) => {
     destroySession(req);
@@ -9,7 +9,7 @@ exports.index = (req, res) => {
         config,
         "userInvalid": false
     });
-}
+};
 
 exports.validateLogin = (req, res) => {
     db.findAccount(req.body.username, (account) => {
@@ -32,17 +32,17 @@ exports.validateLogin = (req, res) => {
             });
         }
     });
-}
+};
 
 exports.create = (req, res) => {
     res.render('create', {
         config
     });
-}
+};
 
 exports.logout = (req, res) => {
     res.redirect('/');
-}
+};
 
 exports.parseCreateData = (req, res) => {
     db.findAccount(req.body.username, (account) => {
@@ -59,7 +59,7 @@ exports.parseCreateData = (req, res) => {
             });
         }
     });
-}
+};
 
 exports.home = (req, res) => {
     db.findAccount(req.session.user.username, (account) => {
@@ -68,20 +68,35 @@ exports.home = (req, res) => {
             name: account.full_name
         });
     });
-}
+};
 
 exports.board = (req, res) => {
     res.render('board', {
         config
     });
-}
+};
 
 exports.edit = (req, res) => {
     res.render('edit', {
         config
     });
-}
+};
 
+exports.parseBoardData = (req, res) => {
+    // db.deleteBoard(0);
+    db.createBoard(0, "Test Board", req.session.user.username, req.body.boardData);
+    res.send();
+};
+
+exports.loadBoard = (req, res) => {
+    // TODO input id
+    db.findBoard(0, (board) => {
+        res.render('board', {
+            config,
+            boardData: db.readBoardData(board)
+        });
+    });
+};
 
 // Helper methods
 /*

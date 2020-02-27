@@ -1,3 +1,4 @@
+const html_parser = require('node-html-parser')
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
@@ -15,9 +16,10 @@ var UserAccount = mongoose.model('user_accounts', mongoose.Schema({
 }));
 
 var Board = mongoose.model('boards', mongoose.Schema({
+    id: Number,
     name: String,
     users: [String],
-    htmlData: String
+    boardData: String
 }));
 
 /**
@@ -27,7 +29,7 @@ var Board = mongoose.model('boards', mongoose.Schema({
  * @param {string} hashed_password Hashed password of the account to be created
  */
 exports.createAccount = (full_name, username, hashed_password) => {
-    console.log(`${full_name}, ${username}, ${hashed_password}`)
+    // console.log(`${full_name}, ${username}, ${hashed_password}`)
     var userAccount = new UserAccount({
         full_name,
         username,
@@ -51,3 +53,37 @@ exports.findAccount = async (username, callback) => {
         return callback(account);
     });
 };
+
+exports.createBoard = (id, name, user, boardData) => {
+    var board = new Board({
+        id,
+        name,
+        users: [user],
+        boardData
+    });
+    board.save((err, board) => {
+        if (err) return console.error(err);
+    });
+}
+
+exports.findBoard = async (id, callback) => {
+    Board.findOne({"id": id}, (err, board) => {
+        if (err) {
+            console.log(err);
+        }
+        return callback(board);
+    });
+};
+
+exports.deleteBoard = async id => {
+    Board.remove({"id": id}, err => {
+        if (err) {
+            console.log(err);
+        }
+    });
+};
+
+exports.readBoardData = (board) => {
+    let boardData = html_parser.parse(board.boardData);
+    return boardData;
+}

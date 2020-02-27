@@ -12,6 +12,7 @@ const urlEncodedParser = bodyParser.urlencoded({extended: false});
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname + '/views'));
+app.use(express.json());
 app.use(express.static(path.join(__dirname + '/public')));
 app.use(cookieParser('login'));
 
@@ -42,6 +43,9 @@ app.get('/create', checkAuth, routes.create);
 app.post('/create', urlEncodedParser, routes.parseCreateData);
 app.get('/home', checkAuth, routes.home);
 app.get('/board', checkAuth, routes.board);
+app.post('/board', urlEncodedParser, routes.parseBoardData);
 app.get('/edit', checkAuth, routes.edit);
+
+app.get('/test', routes.loadBoard)
 
 app.listen(3000);

@@ -5,7 +5,11 @@ block content
     div(id='addCardButton') Add Card
     div(id='saveButton') Save
     br
-    div(id="parentDiv")
+    if boardData
+        div(id='container') !{boardData}
+    else
+        div(id='container')
+            div(id="parentDiv")
     div(id="editBackground" style="color: black; width: 100%; height: 100%;")
 
     script(src='scripts/cardScript.js')

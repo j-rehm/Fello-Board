@@ -24,6 +24,7 @@
     "express-session": "^1.17.0",
     "mongoose": "^5.9.1",
     "node-fetch": "^2.6.0",
+    "node-html-parser": "^1.2.7",
     "pug": "^2.0.4"
   }
 }
