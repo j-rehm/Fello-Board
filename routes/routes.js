@@ -34,20 +34,8 @@ exports.validateLogin = (req, res) => {
     });
 }
 
-exports.board = (req, res) => {
-    res.render('board', {
-        config
-    });
-}
-
 exports.create = (req, res) => {
     res.render('create', {
-        config
-    });
-}
-
-exports.edit = (req, res) => {
-    res.render('edit', {
         config
     });
 }
@@ -83,7 +71,9 @@ exports.home = (req, res) => {
 }
 
 exports.board = (req, res) => {
-    res.render('board');
+    res.render('board', {
+        config
+    });
 }
 
 exports.edit = (req, res) => {
