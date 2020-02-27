@@ -43,6 +43,5 @@ app.post('/create', urlEncodedParser, routes.parseCreateData);
 app.get('/home', checkAuth, routes.home);
 app.get('/board', routes.board);
 app.get('/edit', routes.edit);
-app.get('/logout', routes.logout);
 
 app.listen(3000);

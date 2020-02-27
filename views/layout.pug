@@ -6,13 +6,13 @@ html
         header
             ul
                 li
-                    h3(class='title') #{config['navigation'][6][0]}      
-                li
-                    a(href=config.navigation[3][1]) #{config.navigation[1][1]}
-                li
-                    a(href=config.navigation[4][1]) #{config.navigation[4][1]}
-                li(style="float:right")
-                    a(href=config.navigation[5][1]) #{config.navigation[5][1]}
+                    a(class='title' href=config.navigation[2][1]) #{config.navigation[5][0]}
+                li(class='list_item')
+                    a(class='nav_item' href=config.navigation[3][1]) #{config.navigation[1][1]}
+                li(class='list_item')
+                    a(class='nav_item' href=config.navigation[4][1]) #{config.navigation[4][1]}
+                li(class='list_item' style="float:right")
+                    a(class='nav_logout' href="/") logout
         section
             block content
             script(src='scripts/cardScript.js')

@@ -3,6 +3,11 @@ background-color: gainsboro;
 text-align: center;
 }
 
+body, html {
+    margin:0;
+    padding:0;
+}
+
 #addCardButton {
     color:rgb(228, 228, 228);
     border:1px solid #CCC;
@@ -106,18 +111,36 @@ li {
     float: left;
 }
   
-li a {
+.nav_item {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    border-left: 1px solid #bbb;
+    border-right: 1px solid #bbb;
     display: block;
     color: white;
     text-align: center;
     text-transform: uppercase;
     font-size: 18pt;
-    padding: 40px 25px;
+    padding: 15px 25px;
     text-decoration: none;
 }
   
-li a:hover {
+.nav_item:hover {
+    background-color: #111;
+}
+
+.nav_logout{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    border-left: 1px solid #bbb;
+    display: block;
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 18pt;
+    padding: 15px 25px;
+    text-decoration: none;
+}
+  
+.nav_logout:hover {
     background-color: #111;
 }
 
@@ -125,7 +148,7 @@ li a:hover {
     margin-left: 30px;
     margin-right: 20px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: 25pt;
+    font-size: 34pt;
     color: #ffd700;
 }
 
