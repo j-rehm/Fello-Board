@@ -4,11 +4,24 @@ const bcrypt = require('bcrypt-nodejs');
 const db = require('../database.js');
 
 exports.index = (req, res) => {
+  res.render('index', {
+      config,
+      navBar: getNavBar(req)
+  }); 
+};
+
+exports.login = (req, res) => {
     destroySession(req);
-    res.render('index', {
+    res.render('login', {
         config,
-        "userInvalid": false
+        "userInvalid": false,
+        navBar: getNavBar(req)
     });
+}
+
+exports.logout = (req, res) => {
+    destroySession(req);
+    res.redirect("/");
 };
 
 exports.validateLogin = (req, res) => {
@@ -32,13 +45,14 @@ exports.validateLogin = (req, res) => {
             });
         }
     });
-};
+}
 
 exports.create = (req, res) => {
     res.render('create', {
-        config
+        config,
+        navBar: getNavBar(req)
     });
-};
+}
 
 exports.parseCreateData = (req, res) => {
     db.findAccount(req.body.username, (account) => {
@@ -55,58 +69,76 @@ exports.parseCreateData = (req, res) => {
             });
         }
     });
-};
+}
 
 exports.welcome = (req, res) => {
     db.findAccount(req.session.user.username, (account) => {
         res.render('welcome', {
             config,
-            name: account.full_name
+            name: account.full_name,
+            navBar: getNavBar(req)
         });
     });
-};
-
-exports.board = (req, res) => {
-    res.render('board', {
-        config
-    });
-};
+}
 
 exports.edit = (req, res) => {
     res.render('edit', {
-        config
+        config,
+        navBar: getNavBar(req)
     });
-};
+}
+
+exports.board = (req, res) => {
+    res.render('board', {
+        config,
+        navBar: getNavBar(req)
+    });
+}
 
 exports.parseBoardData = (req, res) => {
-    db.createBoard(0, "Test Board", req.session.user.username, req.text);
+    db.createBoard("Test Board", req.session.user.username, req.text);
     res.send();
-};
+}
 
-exports.loadBoard = (req, res) => {
-    // TODO input id
-    db.findBoard(0, (board) => {
-        res.render('board', {
-            config,
-            boardData: db.readBoardData(board)
-        });
+exports.boardId = (req, res) => {
+    db.findBoard(req.params.id, board => {
+        if (board) {
+            res.render('board', {
+                config,
+                boardData: board.boardData
+            });
+        } else {
+            res.redirect('/home');
+        }
     });
-};
+}
+
 
 // Helper methods
-/*
-    Express session
-*/
+
+// Express session
 const createSession = req => {
     req.session.user = {
         username: req.body.username,
         isAuthenticated: true
     };
     // console.log(req.session);
-};
+}
 const destroySession = req => {
     // console.log(req.session);
     if (req.session.user) {
         req.session.destroy();
     }
-};
+}
+
+// Determine if user is authenticated
+const getNavBar = req => {
+    return (req.session.user && req.session.user.isAuthenticated) ? config.authNavBar : config.unauthNavBar;
+}
+
+// Test function
+exports.test = (req, res) => {
+    db.findBoardsIdsForUser(req.params.x, ids => {
+        res.json(ids);
+    });
+}

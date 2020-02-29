@@ -1,5 +1,6 @@
 const cardButton = document.getElementById('addCardButton');
 const parentDiv = document.getElementById('parentDiv');
+const modalInput = document.getElementById('modalInput');
 
 
 var counter = 0;

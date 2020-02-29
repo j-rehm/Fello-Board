@@ -5,14 +5,9 @@ html
     body
         header
             ul
-                li
-                    a(class='title' href=config.navigation[2][1]) #{config.navigation[5][0]}
-                li(class='list_item')
-                    a(class='nav_item' href=config.navigation[3][1]) #{config.navigation[1][1]}
-                li(class='list_item')
-                    a(class='nav_item' href=config.navigation[4][1]) #{config.navigation[4][1]}
-                li(class='list_item' style="float:right")
-                    a(class='nav_logout' href="/") logout
+                each val in navBar
+                    li(class=val[3])
+                        a(class=val[2] href=val[1]) #{val[0]}
         section
             block content
         footer

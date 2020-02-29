@@ -37,11 +37,18 @@ const checkAuth = (req, res, next) => {
 
 // Routes
 app.get('/', routes.index);
+app.get('/login', routes.login);
 app.post('/login', urlEncodedParser, routes.validateLogin);
+app.get('/logout', routes.logout);
 app.get('/create', routes.create);
 app.post('/create', urlEncodedParser, routes.parseCreateData);
 app.get('/welcome', checkAuth, routes.welcome);
-app.get('/board', checkAuth, routes.board);
 app.get('/edit', checkAuth, routes.edit);
+
+app.get('/board', checkAuth, routes.board);
+app.post('/board', urlEncodedParser, routes.parseBoardData);
+app.get('/board/:id', urlEncodedParser, routes.boardId)
+
+app.get('/test/:x', routes.test);
 
 app.listen(3000);

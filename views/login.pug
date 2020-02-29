@@ -1,0 +1,30 @@
+extends layout
+    
+block content
+    h1 #{config['navigation'][0][0]}
+
+    form(id='form' method ='post' action='/login')
+        p #{config['formData'][0]}
+            input(type='text' name='username' autocomplete='off' required='true')
+        div(class='pass')
+            p #{config['formData'][1]}
+                input(id='password' type='password' name='password' autocomplete='off' required='true')
+                input(type='checkbox' onClick='togglePassword()')
+                b Show Password
+                script(type='text/javascript').
+                    function togglePassword() {
+                        var elem = document.getElementById('password');
+                        console.log(elem.type);
+                        if (elem.type === 'password') {
+                            elem.type = 'text';
+                        } else {
+                            elem.type = 'password';
+                        }
+                    }
+        p
+            input(id='btn' type='submit' value='Log In')
+        if userInvalid
+            p(id="error") #{config['auth'][0]}
+
+    a(href='create')
+        div(class='create_account') #{config['formData'][3]}
