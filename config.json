@@ -16,5 +16,15 @@
     "auth":[
         "Username or Password does not match.",
         "Username already taken."
+    ], 
+    "authNavBar":[
+        ["Fello Board", "/", "title"],
+        ["Create", "create", "nav_item"],
+        ["Edit", "edit", "nav_item"],
+        ["Log out", "logout", "nav_item nav_log"]
+    ],
+    "unauthNavBar":[
+        ["Fello Board", "/", ""],
+        ["Log in", "login", "float: right;"]
     ]
 }

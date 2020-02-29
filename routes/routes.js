@@ -4,12 +4,24 @@ const bcrypt = require('bcrypt-nodejs');
 const db = require('../database.js');
 
 exports.index = (req, res) => {
+  res.render('index', {
+      config,
+      navBar: getNavBar(req)
+  }); 
+};
+
+exports.login = (req, res) => {
     destroySession(req);
-    res.render('index', {
+    res.render('login', {
         config,
         "userInvalid": false
     });
 }
+
+exports.logout = (req, res) => {
+    destroySession(req);
+    res.redirect("/");
+};
 
 exports.validateLogin = (req, res) => {
     db.findAccount(req.body.username, (account) => {
@@ -116,7 +128,7 @@ const destroySession = req => {
 
 // Determine if user is authenticated
 const getNavBar = req => {
-    return (req.session.user.isAuthenticated) ? config.authNavBar : config.unauthNavBar;
+    return (req.session.user && req.session.user.isAuthenticated) ? config.authNavBar : config.unauthNavBar;
 }
 
 // Test function
