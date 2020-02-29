@@ -17,7 +17,7 @@ exports.validateLogin = (req, res) => {
             bcrypt.compare(req.body.password, account.hashed_password, (err, isValid) => {
                 if (isValid) { // password matches
                     createSession(req);
-                    res.redirect('/home');
+                    res.redirect('/welcome');
                 } else { // password does not match
                     res.render('index', {
                         config,
@@ -57,9 +57,9 @@ exports.parseCreateData = (req, res) => {
     });
 };
 
-exports.home = (req, res) => {
+exports.welcome = (req, res) => {
     db.findAccount(req.session.user.username, (account) => {
-        res.render('home', {
+        res.render('welcome', {
             config,
             name: account.full_name
         });
