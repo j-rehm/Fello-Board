@@ -9,7 +9,7 @@ exports.index = (req, res) => {
         config,
         "userInvalid": false
     });
-};
+}
 
 exports.validateLogin = (req, res) => {
     db.findAccount(req.body.username, (account) => {
@@ -32,13 +32,13 @@ exports.validateLogin = (req, res) => {
             });
         }
     });
-};
+}
 
 exports.create = (req, res) => {
     res.render('create', {
         config
     });
-};
+}
 
 exports.parseCreateData = (req, res) => {
     db.findAccount(req.body.username, (account) => {
@@ -55,7 +55,7 @@ exports.parseCreateData = (req, res) => {
             });
         }
     });
-};
+}
 
 exports.home = (req, res) => {
     db.findAccount(req.session.user.username, (account) => {
@@ -64,49 +64,64 @@ exports.home = (req, res) => {
             name: account.full_name
         });
     });
-};
-
-exports.board = (req, res) => {
-    res.render('board', {
-        config
-    });
-};
+}
 
 exports.edit = (req, res) => {
     res.render('edit', {
         config
     });
-};
+}
+
+exports.board = (req, res) => {
+    res.render('board', {
+        config
+    });
+}
 
 exports.parseBoardData = (req, res) => {
-    db.createBoard(0, "Test Board", req.session.user.username, req.text);
+    db.createBoard("Test Board", req.session.user.username, req.text);
     res.send();
-};
+}
 
-exports.loadBoard = (req, res) => {
-    // TODO input id
-    db.findBoard(0, (board) => {
-        res.render('board', {
-            config,
-            boardData: db.readBoardData(board)
-        });
+exports.boardId = (req, res) => {
+    db.findBoard(req.params.id, board => {
+        if (board) {
+            res.render('board', {
+                config,
+                boardData: board.boardData
+            });
+        } else {
+            res.redirect('/home');
+        }
     });
-};
+}
+
 
 // Helper methods
-/*
-    Express session
-*/
+
+// Express session
 const createSession = req => {
     req.session.user = {
         username: req.body.username,
         isAuthenticated: true
     };
     // console.log(req.session);
-};
+}
 const destroySession = req => {
     // console.log(req.session);
     if (req.session.user) {
         req.session.destroy();
     }
-};
+}
+
+// Determine if user is authenticated
+const getNavBar = req => {
+    return (req.session.user.isAuthenticated) ? config.authNavBar : config.unauthNavBar;
+}
+
+// Test function
+exports.test = (req, res) => {
+    db.findBoardsIdsForUser(req.params.x, ids => {
+        res.json(ids);
+    });
+}

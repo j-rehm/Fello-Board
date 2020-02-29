@@ -53,13 +53,16 @@ const checkAuth = (req, res, next) => {
 // Routes
 app.get('/', routes.index);
 app.post('/login', urlEncodedParser, routes.validateLogin);
-app.get('/create', checkAuth, routes.create);
+app.get('/create', routes.create);
 app.post('/create', urlEncodedParser, routes.parseCreateData);
 app.get('/home', checkAuth, routes.home);
-app.get('/board', checkAuth, routes.board);
-app.post('/board', urlEncodedParser, routes.parseBoardData);
 app.get('/edit', checkAuth, routes.edit);
 
-app.get('/test', routes.loadBoard)
+app.get('/board', checkAuth, routes.board);
+app.post('/board', urlEncodedParser, routes.parseBoardData);
+app.get('/board/:id', urlEncodedParser, routes.boardId)
+
+app.get('/test/:x', routes.test);
+// app.get('/test', routes.test);
 
 app.listen(3000);
