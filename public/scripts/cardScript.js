@@ -2,12 +2,20 @@ const cardButton = document.getElementById('addCardButton');
 const parentDiv = document.getElementById('parentDiv');
 const modalInput = document.getElementById('modalInput');
 
+
+var counter = 0;
+
+const test = () =>{
+    console.log('test');
+}
+
 const drag = (elmnt) => {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     
     const dragMouseDown = (e) => {
         e = e || window.event;
         e.preventDefault();
+        
         // get the mouse cursor position at startup:
         pos3 = e.clientX;
         pos4 = e.clientY;
@@ -19,6 +27,17 @@ const drag = (elmnt) => {
     document.getElementById(`${elmnt.id}Header`).onmousedown = dragMouseDown;
     
     const elementDrag = (e) => {
+        let previousPos = e.target.getBoundingClientRect().x;
+        // Tilts the card and tones the transparency down.
+        if (previousPos < e.target.getBoundingClientRect().x) {
+            elmnt.parentElement.style.transform = 'rotate(5deg)';
+        } else {
+            elmnt.parentElement.style.transform = 'rotate(-5deg)';
+        }
+        elmnt.parentElement.style.opacity = '0.35';
+        elmnt.style.opacity = '0.35';
+        elmnt.parentElement.children[1].style.opacity = '0.35';
+
         e = e || window.event;
         e.preventDefault();
         
@@ -48,14 +67,18 @@ const drag = (elmnt) => {
         }
     }
     
-    const closeDragElement = () => {
+    const closeDragElement = (e) => {
         /* stop moving when mouse button is released:*/
         document.onmouseup = null;
         document.onmousemove = null;
+
+        // unTilts the card and tones the transparency up.
+        elmnt.parentElement.style.transform = 'rotate(0deg)';
+        elmnt.parentElement.style.opacity = '1';
+        elmnt.style.opacity = '1';
+        elmnt.parentElement.children[1].style.opacity = '1';
     }
 }
-
-var counter = 0;
 
 const editField = (e) => {
     // Get the modal
@@ -122,6 +145,7 @@ const checkIfList = (entry) => {
             // Changing the FIRST child's class and id name.
             entry.target.children[0].id = entry.target.children[0].id + "List";
             entry.target.children[0].classList.remove('divDrag');
+            entry.target.children[0].children[0].style.height = '20px';
             entry.target.children[0].classList.add('divDragList');
             
             // Changing the SECOND child's class and id name.
