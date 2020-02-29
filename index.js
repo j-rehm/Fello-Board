@@ -15,21 +15,6 @@ app.set('views', path.join(__dirname + '/views'));
 app.use(express.static(path.join(__dirname + '/public')));
 app.use(cookieParser('login'));
 
-// application/json content type (use JSON.Stringify())
-app.use(express.json());
-
-// plain/text content type
-app.use(function(req, res, next){
-    if (req.is('text/*')) {
-      req.text = '';
-      req.setEncoding('utf8');
-      req.on('data', function(chunk){ req.text += chunk });
-      req.on('end', next);
-    } else {
-      next();
-    }
-});
-
 app.use(expressSession({
     secret: 'FelloBoardUserSessionPassword',
     saveUninitialized: true,
@@ -53,13 +38,10 @@ const checkAuth = (req, res, next) => {
 // Routes
 app.get('/', routes.index);
 app.post('/login', urlEncodedParser, routes.validateLogin);
-app.get('/create', checkAuth, routes.create);
+app.get('/create', routes.create);
 app.post('/create', urlEncodedParser, routes.parseCreateData);
 app.get('/home', checkAuth, routes.home);
 app.get('/board', checkAuth, routes.board);
-app.post('/board', urlEncodedParser, routes.parseBoardData);
 app.get('/edit', checkAuth, routes.edit);
-
-app.get('/test', routes.loadBoard)
 
 app.listen(3000);
