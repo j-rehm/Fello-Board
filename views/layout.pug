@@ -6,7 +6,7 @@ html
         header
             ul
                 each val in navBar
-                    li
+                    li(class=val[3])
                         a(class=val[2] href=val[1]) #{val[0]}
         section
             block content
