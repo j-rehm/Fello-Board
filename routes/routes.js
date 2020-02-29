@@ -14,7 +14,8 @@ exports.login = (req, res) => {
     destroySession(req);
     res.render('login', {
         config,
-        "userInvalid": false
+        "userInvalid": false,
+        navBar: getNavBar(req)
     });
 }
 
@@ -48,7 +49,8 @@ exports.validateLogin = (req, res) => {
 
 exports.create = (req, res) => {
     res.render('create', {
-        config
+        config,
+        navBar: getNavBar(req)
     });
 }
 
@@ -73,20 +75,23 @@ exports.welcome = (req, res) => {
     db.findAccount(req.session.user.username, (account) => {
         res.render('welcome', {
             config,
-            name: account.full_name
+            name: account.full_name,
+            navBar: getNavBar(req)
         });
     });
 }
 
 exports.edit = (req, res) => {
     res.render('edit', {
-        config
+        config,
+        navBar: getNavBar(req)
     });
 }
 
 exports.board = (req, res) => {
     res.render('board', {
-        config
+        config,
+        navBar: getNavBar(req)
     });
 }
 
