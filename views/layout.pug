@@ -6,8 +6,8 @@ html
         header
             ul
                 each val in navBar
-                    li
-                        a(class='title' href=val[1]) #{val[0]}
+                    li(class=val[3])
+                        a(class=val[2] href=val[1]) #{val[0]}
         section
             block content
         footer

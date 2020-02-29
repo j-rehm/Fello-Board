@@ -198,7 +198,11 @@ ul {
 li {
     float: left;
 }
-  
+
+.log_li {
+    float: right;
+}
+
 .nav_item {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     border-left: 1px solid #bbb;
@@ -216,10 +220,22 @@ li {
     background-color: #111;
 }
 
-.nav_log{
+.nav_logout{
     border-right: 0;
-    float: right;
 }
+
+.nav_logout:hover {
+    color: rgb(255, 0, 0);
+}
+
+.nav_login{
+    border-right: 0;
+}
+
+.nav_login:hover {
+    color: rgb(17, 189, 17);
+}
+
 
 .title {
     margin-left: 30px;
