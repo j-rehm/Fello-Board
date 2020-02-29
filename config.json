@@ -2,7 +2,7 @@
     "navigation":[
         ["Log In", "/"],
         ["Create Your Account", "create"],
-        ["Welcome", "home"],
+        ["Welcome", "welcome"],
         ["Board", "board"],
         ["Edit Your Account", "edit"],
         ["Fello Board", ""]
