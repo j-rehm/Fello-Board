@@ -170,20 +170,9 @@ li {
     background-color: #111;
 }
 
-.nav_logout{
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    border-left: 1px solid #bbb;
-    display: block;
-    color: white;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 18pt;
-    padding: 15px 25px;
-    text-decoration: none;
-}
-  
-.nav_logout:hover {
-    background-color: #111;
+.nav_log{
+    border-right: 0;
+    float: right;
 }
 
 .title {

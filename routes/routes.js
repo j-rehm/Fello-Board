@@ -4,11 +4,23 @@ const bcrypt = require('bcrypt-nodejs');
 const db = require('../database.js');
 
 exports.index = (req, res) => {
+  res.render('index', {
+      config,
+      navBar: getNavBar(req)
+  }); 
+};
+
+exports.login = (req, res) => {
     destroySession(req);
-    res.render('index', {
+    res.render('login', {
         config,
         "userInvalid": false
     });
+};
+
+exports.logout = (req, res) => {
+    destroySession(req);
+    res.redirect("/");
 };
 
 exports.validateLogin = (req, res) => {
@@ -92,7 +104,6 @@ exports.loadBoard = (req, res) => {
         });
     });
 };
-
 // Helper methods
 /*
     Express session
