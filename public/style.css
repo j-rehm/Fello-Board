@@ -144,30 +144,39 @@ input[type=submit]:hover {
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
+}
   
-  /* Modal Content */
-  .modal-content {
+/* Modal Content */
+.modal-content {
+    display: flex;
     background-color: #fefefe;
     z-index: 16;
     border: 1px solid #888;
     position: absolute;
-  }
+}
+
+.modal-input {
+    resize: none;
+    margin: 5px;
+    width: 100%;
+    z-index: 16;
+}
   
-  /* The Close Button */
-  .close {
+/* The Close Button */
+.close {
+    margin: 5px;
     color: #aaaaaa;
-    float: right;
     font-size: 28px;
     font-weight: bold;
-  }
+}
   
-  .close:hover,
-  .close:focus {
+.close:hover,
+.close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
-  }
+}
+
 .pass {
     margin: 0px 0px 0px 130px;
 }
