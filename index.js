@@ -40,7 +40,7 @@ app.get('/', routes.index);
 app.post('/login', urlEncodedParser, routes.validateLogin);
 app.get('/create', routes.create);
 app.post('/create', urlEncodedParser, routes.parseCreateData);
-app.get('/home', checkAuth, routes.home);
+app.get('/welcome', checkAuth, routes.welcome);
 app.get('/board', checkAuth, routes.board);
 app.get('/edit', checkAuth, routes.edit);
 
