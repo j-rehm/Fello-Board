@@ -1,5 +1,6 @@
 const cardButton = document.getElementById('addCardButton');
 const parentDiv = document.getElementById('parentDiv');
+const modalInput = document.getElementById('modalInput');
 
 const drag = (elmnt) => {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -27,9 +28,24 @@ const drag = (elmnt) => {
         pos3 = e.clientX;
         pos4 = e.clientY;
 
-        // set the element's new position:
+        // Set the element's new position
         elmnt.parentElement.style.top = (elmnt.parentElement.offsetTop - pos2) + "px";
         elmnt.parentElement.style.left = (elmnt.parentElement.offsetLeft - pos1) + "px";
+
+        var cardButtonRect = cardButton.getBoundingClientRect();
+        
+        var minHeight = cardButtonRect.top + 5;
+        var minLeftPos = cardButtonRect.left + cardButtonRect.width + 5;
+        
+        // Make sure it isnt too high up
+        if (elmnt.parentElement.getBoundingClientRect().top < minHeight) {
+            elmnt.parentElement.style.top = minHeight + "px";
+        }
+        
+        // Make sure it isnt too far left
+        if (elmnt.parentElement.getBoundingClientRect().left < minLeftPos) {
+            elmnt.parentElement.style.left = minLeftPos + "px";
+        }
     }
     
     const closeDragElement = () => {
@@ -80,8 +96,55 @@ const checkIfList = (entry) => {
     if (entry.target.getBoundingClientRect().height > 325) {
         entry.target.children[1].style.height = `${entry.target.getBoundingClientRect().height - entry.target.children[0].getBoundingClientRect().height}px`;
     }
+
+    // Checking the size of a card being resized
     if (cr.height >= 600 && cr.width >= 1000) {
-        console.log(entry.target);
+        // If a card is a list but reaches a certain size, it will become a list element.
+        if (!(/list/gmi.test(entry.target.id))) {
+            entry.target.id = entry.target.id + 'List';
+            entry.target.classList.remove('divChild');
+            entry.target.classList.add('divChildList');
+            
+            // Changing the FIRST child's class and id name.
+            entry.target.children[0].id = entry.target.children[0].id + "List";
+            entry.target.children[0].classList.remove('divDrag');
+            entry.target.children[0].classList.add('divDragList');
+            
+            // Changing the SECOND child's class and id name.
+            entry.target.children[1].id = entry.target.children[1].id + "List";
+            entry.target.children[1].classList.remove('divInfo');
+            entry.target.children[1].classList.add('divInfoList');
+            // Removes the entry field for the info part of a card.
+            entry.target.children[1].removeChild(entry.target.children[1].firstChild);
+        }
+    // If a card is already a list, and it shrinks with no children, it will not be a list element.
+    } else if (cr.height <= 600 && cr.width <= 1000) {
+        if (/list/gmi.test(entry.target.id)) {
+            entry.target.id = (entry.target.id).replace(/list/gmi, '');
+            entry.target.classList.remove('divChildList');
+            entry.target.classList.add('divChild');
+            
+            // Changing the FIRST child's class and id name.
+            entry.target.children[0].id = (entry.target.children[0].id).replace(/list/gmi, '');
+            entry.target.children[0].classList.remove('divDragList');
+            entry.target.children[0].classList.add('divDrag');
+            
+            // Changing the SECOND child's class and id name.
+            entry.target.children[1].id = (entry.target.children[1].id).replace(/list/gmi, '');
+            entry.target.children[1].classList.remove('divInfoList');
+            entry.target.children[1].classList.add('divInfo');
+            // Adds the entry field for the info part of a card.
+            let desc = document.createElement("P");
+            
+            // Adds class and id name to "header" and "desc"
+            desc.classList.add('cardDesc');
+            desc.id = `pDesc${counter}`;
+            
+            desc.style.height = "15px";
+            desc.onclick = editField;
+
+            entry.target.children[1].appendChild(desc);
+        }
     }
 }
 
@@ -99,6 +162,12 @@ const addNewCard = (e) => {
     childDiv.style.minHeight = '301px';
     childDiv.style.minWidth = '322px';
     childDiv.style.padding = '0px';
+
+    // Move the card pos to be further right
+    childDiv.style.left = cardButton.getBoundingClientRect().left + cardButton.getBoundingClientRect().width + 5 + "px";
+
+    // Move the card pos to be further up
+    childDiv.style.top = cardButton.getBoundingClientRect().top + 5 + "px";
     
     let divInfo = document.createElement("DIV");
     divInfo.classList.add('divInfo');
@@ -130,13 +199,7 @@ const addNewCard = (e) => {
     divInfo.appendChild(desc);
     
     header.style.height = "15px";
-    header.style.margin = '5px';
-    header.style.padding = '0px';
-    header.style.border = '2px solid black';
     desc.style.height = "15px";
-    desc.style.margin = '5px';
-    desc.style.padding = '0px';
-    desc.style.border = '2px solid black';
     
     header.onclick = editField;
     desc.onclick = editField;
