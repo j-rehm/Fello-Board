@@ -59,35 +59,49 @@ var counter = 0;
 
 const editField = (e) => {
     // Get the modal
-    var modal = document.getElementById("myModal");
+    let modal = document.getElementById("myModal");
 
-    var modalContent = document.getElementById("modalContent");
+    let modalContent = document.getElementById("modalContent");
+    let modalInputArea = document.getElementById("modalInput");
 
-    var clickedDiv = e.target;
+    let clickedDiv = e.target;
 
+    // Move the modal to the correct area
     modalContent.style.left = clickedDiv.parentElement.getBoundingClientRect().left+'px';
     modalContent.style.top = clickedDiv.parentElement.getBoundingClientRect().top+'px';
 
     modalContent.style.width = clickedDiv.parentElement.getBoundingClientRect().width+'px';
     modalContent.style.height = clickedDiv.parentElement.getBoundingClientRect().height+'px';
+
+    // Set the modal input area text to the text in the clicked box
+    if (clickedDiv.innerHTML == "") {
+        if (clickedDiv.id.includes("pHeader")) {
+            modalInputArea.value = "Enter Card Title";
+        } else if (clickedDiv.id.includes("pDesc")) {
+            modalInputArea.value = "Enter Card Description";
+        }
+    } else {
+        modalInputArea.value = clickedDiv.innerHTML;
+    }
     
     // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+    let span = document.getElementsByClassName("close")[0];
 
     // When the user clicks the button, open the modal 
     modal.style.display = "block";
 
-    // When the user clicks on <span> (x), close the modal
+    // When the user clicks on save, close the modal
     span.onclick = function() {
+        clickedDiv.innerHTML = modalInputArea.value;
         modal.style.display = "none";
     }
 
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
+    // window.onclick = function(event) {
+    //     if (event.target == modal) {
+    //         modal.style.display = "none";
+    //     }
+    // }
 }
 
 const checkIfList = (entry) => {
