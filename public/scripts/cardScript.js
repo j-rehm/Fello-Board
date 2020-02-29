@@ -27,17 +27,23 @@ const drag = (elmnt) => {
         pos3 = e.clientX;
         pos4 = e.clientY;
 
-        // Make sure it isnt too high up
-        var saveButton = document.getElementById("saveButton").getBoundingClientRect();
-
-        var minHeight = saveButton.top + saveButton.height + 5;
-
-        // set the element's new position:
+        // Set the element's new position
         elmnt.parentElement.style.top = (elmnt.parentElement.offsetTop - pos2) + "px";
         elmnt.parentElement.style.left = (elmnt.parentElement.offsetLeft - pos1) + "px";
 
+        var cardButtonRect = cardButton.getBoundingClientRect();
+        
+        var minHeight = cardButtonRect.top + 5;
+        var minLeftPos = cardButtonRect.left + cardButtonRect.width + 5;
+        
+        // Make sure it isnt too high up
         if (elmnt.parentElement.getBoundingClientRect().top < minHeight) {
             elmnt.parentElement.style.top = minHeight + "px";
+        }
+        
+        // Make sure it isnt too far left
+        if (elmnt.parentElement.getBoundingClientRect().left < minLeftPos) {
+            elmnt.parentElement.style.left = minLeftPos + "px";
         }
     }
     
@@ -108,6 +114,12 @@ const addNewCard = (e) => {
     childDiv.style.minHeight = '301px';
     childDiv.style.minWidth = '322px';
     childDiv.style.padding = '0px';
+
+    // Move the card pos to be further right
+    childDiv.style.left = cardButton.getBoundingClientRect().left + cardButton.getBoundingClientRect().width + 5 + "px";
+
+    // Move the card pos to be further up
+    childDiv.style.top = cardButton.getBoundingClientRect().top + 5 + "px";
     
     let divInfo = document.createElement("DIV");
     divInfo.classList.add('divInfo');
