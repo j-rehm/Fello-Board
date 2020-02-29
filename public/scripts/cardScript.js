@@ -27,9 +27,18 @@ const drag = (elmnt) => {
         pos3 = e.clientX;
         pos4 = e.clientY;
 
+        // Make sure it isnt too high up
+        var saveButton = document.getElementById("saveButton").getBoundingClientRect();
+
+        var minHeight = saveButton.top + saveButton.height + 5;
+
         // set the element's new position:
         elmnt.parentElement.style.top = (elmnt.parentElement.offsetTop - pos2) + "px";
         elmnt.parentElement.style.left = (elmnt.parentElement.offsetLeft - pos1) + "px";
+
+        if (elmnt.parentElement.getBoundingClientRect().top < minHeight) {
+            elmnt.parentElement.style.top = minHeight + "px";
+        }
     }
     
     const closeDragElement = () => {
