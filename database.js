@@ -140,7 +140,9 @@ exports.readBoardData = (board) => {
 // Helper functions
 
 const handleIfError = err => {
-    console.error(err);
+    if (err) {
+        console.error(err);
+    }
 };
 
 const getNextBoardId = callback => {
