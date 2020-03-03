@@ -122,18 +122,18 @@ exports.createBoard = (req, res) => {
 }
 
 exports.parseBoardData = (req, res) => {
-    // console.log(req.body);
-    db.updateBoardData(req.body.id, req.body.boardData);
+    console.log(req.text);
+    // db.updateBoardData(req.session.boardId, req.text);
     res.send();
 }
 
 exports.loadBoardFromId = (req, res) => {
     db.findBoard(req.params.id, board => {
         if (board) {
+            setSessionBoardId(req, board.id);
             res.render('board', {
                 config,
                 navBar: getNavBar(req),
-                boardId : board.id,
                 boardName: board.name,
                 boardData: board.boardData
             });
@@ -159,6 +159,9 @@ const destroySession = req => {
     if (req.session.user) {
         req.session.destroy();
     }
+}
+const setSessionBoardId = (req, boardId) => {
+    req.session.boardId = boardId;
 }
 
 // Determine if user is authenticated
