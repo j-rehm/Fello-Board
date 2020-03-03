@@ -44,6 +44,8 @@ app.get('/create', routes.create);
 app.post('/create', urlEncodedParser, routes.parseCreateData);
 app.get('/welcome', checkAuth, routes.welcome);
 app.get('/edit', checkAuth, routes.edit);
+app.post('/edit', checkAuth, routes.updateUserData);
+
 
 app.get('/board', checkAuth, routes.getBoardName);
 app.post('/board', urlEncodedParser, routes.createBoard);
