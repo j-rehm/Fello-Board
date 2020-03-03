@@ -28,6 +28,10 @@ body{
     box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
 }
 
+#boardTitle{
+    max-width: 100px;
+}
+
 #trashCan {
     vertical-align: middle;
     float: left;
