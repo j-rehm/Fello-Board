@@ -3,7 +3,6 @@ const expressSession = require('express-session');
 const pug = require('pug');
 const bodyParser = require('body-parser');
 const path = require('path');
-const bcrypt = require('bcrypt-nodejs');
 const routes = require('./routes/routes.js');
 const cookieParser = require('cookie-parser');
 

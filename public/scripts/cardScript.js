@@ -104,6 +104,53 @@ const drag = (elmnt) => {
     }
 }
 
+const editField = (e) => {
+    // Get the modal
+    let modal = document.getElementById("myModal");
+
+    let modalContent = document.getElementById("modalContent");
+    let modalInputArea = document.getElementById("modalInput");
+
+    let clickedDiv = e.target;
+
+    // Move the modal to the correct area
+    modalContent.style.left = clickedDiv.parentElement.getBoundingClientRect().left+'px';
+    modalContent.style.top = clickedDiv.parentElement.getBoundingClientRect().top+'px';
+
+    modalContent.style.width = clickedDiv.parentElement.getBoundingClientRect().width+'px';
+    modalContent.style.height = clickedDiv.parentElement.getBoundingClientRect().height+'px';
+
+    // Set the modal input area text to the text in the clicked box
+    if (clickedDiv.innerHTML == "") {
+        if (clickedDiv.id.includes("pHeader")) {
+            modalInputArea.value = "Enter Card Title";
+        } else if (clickedDiv.id.includes("pDesc")) {
+            modalInputArea.value = "Enter Card Description";
+        }
+    } else {
+        modalInputArea.value = clickedDiv.innerHTML;
+    }
+    
+    // Get the <span> element that closes the modal
+    let span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    modal.style.display = "block";
+
+    // When the user clicks on save, close the modal
+    span.onclick = function() {
+        clickedDiv.innerHTML = modalInputArea.value;
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    // window.onclick = function(event) {
+    //     if (event.target == modal) {
+    //         modal.style.display = "none";
+    //     }
+    // }
+}
+
 const checkIfList = (entry) => {
     const cr = entry.contentRect;
     // Resizes the divInfo element
