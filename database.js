@@ -31,9 +31,7 @@ exports.createAccount = (full_name, username, hashed_password) => {
         username,
         hashed_password
     });
-    userAccount.save((err, account) => {
-        handleIfError(err);
-    });
+    saveAccount(userAccount);
 }
 
 /**
@@ -64,18 +62,18 @@ let nextId = 0;
  * Creates a new board with a  and stores it in the database
  * @param {string} name Name of the board to be created
  * @param {string} username Username of user who created the page
- * @param {string} boardData String of HTML data representing the board
  */
-exports.createBoard = (name, username, boardData) => {
+exports.createBoard = (name, username) => {
+    let id = nextId++;
     var board = new Board({
-        id: nextId++,
+        id,
         name,
-        users: [username],
-        boardData
+        users: [username]
     });
     board.save((err, board) => {
         handleIfError(err);
     });
+    return id;
 }
 
 /**
@@ -116,9 +114,13 @@ exports.readBoardData = (board) => {
     return boardData;
 }
 
-// exports.updateBoardData = (board, newBoardData) => {
-//     board.boardData = newBoardData;
-// };
+exports.updateBoardData = (id, newBoardData) => {
+    this.findBoard(id, (err, board) => {
+        handleIfError(err);
+        board.boardData = newBoardData;
+        saveBoard(board);
+    });
+};
 
 // exports.addUsersToBoard = (board, users) => {
 //     users.forEach(username => {
@@ -145,6 +147,12 @@ const handleIfError = err => {
     }
 };
 
+const saveAccount = account => {
+    account.save((err, board) => {
+        handleIfError(err);
+    });
+}
+
 const getNextBoardId = callback => {
     Board.find({}, (err, boards) => {
         handleIfError(err);
@@ -154,6 +162,12 @@ const getNextBoardId = callback => {
         }
     })
 };
+
+const saveBoard = board => {
+    board.save((err, board) => {
+        handleIfError(err);
+    });
+}
 
 
 //Code

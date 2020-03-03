@@ -1,5 +1,4 @@
 const config = require('../config');
-const fetch = require('node-fetch');
 const bcrypt = require('bcrypt-nodejs');
 const db = require('../database.js');
 
@@ -8,7 +7,7 @@ exports.index = (req, res) => {
       config,
       navBar: getNavBar(req)
   }); 
-};
+}
 
 exports.login = (req, res) => {
     destroySession(req);
@@ -98,18 +97,32 @@ exports.board = (req, res) => {
     });
 }
 
+exports.getBoardName = (req, res) => {
+    res.render('getBoardName', {
+        config,
+        navBar: getNavBar(req)
+    })
+}
+
+exports.createBoard = (req, res) => {
+    let id = db.createBoard(req.body.boardName, req.session.user.username);
+    res.redirect(`/board/${id}`);
+}
+
 exports.parseBoardData = (req, res) => {
-    db.createBoard("Test Board", req.session.user.username, req.text);
+    db.updateBoardData(req.body.id, req.body.boardData);
     res.send();
 }
 
-exports.boardId = (req, res) => {
+exports.loadBoardFromId = (req, res) => {
     db.findBoard(req.params.id, board => {
         if (board) {
             res.render('board', {
                 config,
+                navBar: getNavBar(req),
                 boardData: board.boardData
             });
+            res.send(board.id);
         } else {
             res.redirect('/home');
         }
@@ -141,7 +154,9 @@ const getNavBar = req => {
 
 // Test function
 exports.test = (req, res) => {
-    db.findBoardsIdsForUser(req.params.x, ids => {
-        res.json(ids);
-    });
+    // db.findBoardsIdsForUser(req.params.x, ids => {
+    //     res.json(ids);
+    // });
+
+    console.log(req.body);
 }

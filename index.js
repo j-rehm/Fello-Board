@@ -20,6 +20,7 @@ app.use(expressSession({
     resave: true
 }));
 
+app.use(express.json());
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -44,10 +45,12 @@ app.post('/create', urlEncodedParser, routes.parseCreateData);
 app.get('/welcome', checkAuth, routes.welcome);
 app.get('/edit', checkAuth, routes.edit);
 
-app.get('/board', checkAuth, routes.board);
-app.post('/board', urlEncodedParser, routes.parseBoardData);
-app.get('/board/:id', urlEncodedParser, routes.boardId)
+app.get('/board', checkAuth, routes.getBoardName);
+app.post('/board', urlEncodedParser, routes.createBoard);
+app.post('/updateBoard', urlEncodedParser, routes.parseBoardData);
+app.get('/board/:id', urlEncodedParser, routes.loadBoardFromId)
 
-app.get('/test/:x', routes.test);
+// app.get('/test/:x', routes.test);
+app.post('/test', routes.test);
 
 app.listen(3000);
