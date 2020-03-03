@@ -1,6 +1,7 @@
 extends layout
 
 block content
+    input(id='boardId' type='hidden' value={boardId})
     //Can use same class names for color stuff, but id's need to be unique
     h3(id='boardTitle') #{boardName}
     div(id='addCardButton') Add Card
@@ -21,5 +22,5 @@ block content
             p(class="close") Save
     div(id="editBackground" style="color: black; width: 100%; height: 100%;")
 
-    script(src='scripts/cardScript.js')
-    script(src='scripts/boardSaving.js')
+    script(src='/scripts/cardScript.js')
+    script(src='/scripts/boardSaving.js')

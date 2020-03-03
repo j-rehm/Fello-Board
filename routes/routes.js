@@ -110,6 +110,7 @@ exports.createBoard = (req, res) => {
 }
 
 exports.parseBoardData = (req, res) => {
+    // console.log(req.body);
     db.updateBoardData(req.body.id, req.body.boardData);
     res.send();
 }
@@ -120,10 +121,10 @@ exports.loadBoardFromId = (req, res) => {
             res.render('board', {
                 config,
                 navBar: getNavBar(req),
+                boardId : board.id,
                 boardName: board.name,
                 boardData: board.boardData
             });
-            res.send(board.id);
         } else {
             res.redirect('/home');
         }
