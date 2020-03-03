@@ -37,7 +37,7 @@ exports.createAccount = (full_name, username, hashed_password) => {
 }
 
 /**
- * Finds an account in the database with username as the key
+ * Finds an account in the database with matching username
  * @param {string} username Username of the account to find
  * @param {callback} callback Calback with account result. To be fired once an account has been found or if the account does not exist
  */
@@ -63,13 +63,14 @@ let nextId = 0;
 /**
  * Creates a new board with a  and stores it in the database
  * @param {string} name Name of the board to be created
- * @param
+ * @param {string} username Username of user who created the page
+ * @param {string} boardData String of HTML data representing the board
  */
-exports.createBoard = (name, user, boardData) => {
+exports.createBoard = (name, username, boardData) => {
     var board = new Board({
         id: nextId++,
         name,
-        users: [user],
+        users: [username],
         boardData
     });
     board.save((err, board) => {
@@ -77,6 +78,11 @@ exports.createBoard = (name, user, boardData) => {
     });
 }
 
+/**
+ * Finds the board in the database with matching id
+ * @param {Number} id Id of the board to find
+ * @param {callback} callback Callback with board result. To be fired once a board has been found or if the board does not exist
+ */
 exports.findBoard = async (id, callback) => {
     Board.findOne({"id": id}, (err, board) => {
         handleIfError(err);
@@ -84,6 +90,11 @@ exports.findBoard = async (id, callback) => {
     });
 }
 
+/**
+ * Finds the id of each board where username is included in users list
+ * @param {string} username Username to look for
+ * @param {callback} callback Callback with list of numeric ids. To be fired when every board has been checked
+ */
 exports.findBoardsIdsForUser = async (username, callback) => {
     ids = []
     Board.find({ "users": { $in: [username] } }, (err, boards) => {
@@ -95,6 +106,11 @@ exports.findBoardsIdsForUser = async (username, callback) => {
     });
 }
 
+/**
+ * Reads the board data string and parses it into an HTML DOM fragment object
+ * @param {board} board Board to read
+ * @returns The parsed DOM object
+ */
 exports.readBoardData = (board) => {
     let boardData = html_parser.parse(board.boardData);
     return boardData;
@@ -124,7 +140,9 @@ exports.readBoardData = (board) => {
 // Helper functions
 
 const handleIfError = err => {
-    console.error(err);
+    if (err) {
+        console.error(err);
+    }
 };
 
 const getNextBoardId = callback => {
@@ -137,8 +155,8 @@ const getNextBoardId = callback => {
     })
 };
 
-//Code
 
+//Code
 
 getNextBoardId(id => {
     if (id) {

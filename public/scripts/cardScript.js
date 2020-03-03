@@ -2,12 +2,49 @@ const cardButton = document.getElementById('addCardButton');
 const parentDiv = document.getElementById('parentDiv');
 const modalInput = document.getElementById('modalInput');
 
+
+var counter = 0;
+
+const editField = (e) => {
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    var modalContent = document.getElementById("modalContent");
+
+    var clickedDiv = e.target;
+
+    modalContent.style.left = clickedDiv.parentElement.getBoundingClientRect().left+'px';
+    modalContent.style.top = clickedDiv.parentElement.getBoundingClientRect().top+'px';
+
+    modalContent.style.width = clickedDiv.parentElement.getBoundingClientRect().width+'px';
+    modalContent.style.height = clickedDiv.parentElement.getBoundingClientRect().height+'px';
+    
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    modal.style.display = "block";
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+}
+
 const drag = (elmnt) => {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     
     const dragMouseDown = (e) => {
         e = e || window.event;
         e.preventDefault();
+        
         // get the mouse cursor position at startup:
         pos3 = e.clientX;
         pos4 = e.clientY;
@@ -19,6 +56,12 @@ const drag = (elmnt) => {
     document.getElementById(`${elmnt.id}Header`).onmousedown = dragMouseDown;
     
     const elementDrag = (e) => {
+        // Tilts the card and tones the transparency down.
+        elmnt.parentElement.style.transform = 'rotate(5deg)';
+        elmnt.parentElement.style.opacity = '0.35';
+        elmnt.style.opacity = '0.35';
+        elmnt.parentElement.children[1].style.opacity = '0.35';
+
         e = e || window.event;
         e.preventDefault();
         
@@ -48,46 +91,64 @@ const drag = (elmnt) => {
         }
     }
     
-    const closeDragElement = () => {
+    const closeDragElement = (e) => {
         /* stop moving when mouse button is released:*/
         document.onmouseup = null;
         document.onmousemove = null;
+
+        // unTilts the card and tones the transparency up.
+        elmnt.parentElement.style.transform = 'rotate(0deg)';
+        elmnt.parentElement.style.opacity = '1';
+        elmnt.style.opacity = '1';
+        elmnt.parentElement.children[1].style.opacity = '1';
     }
 }
 
-var counter = 0;
-
 const editField = (e) => {
     // Get the modal
-    var modal = document.getElementById("myModal");
+    let modal = document.getElementById("myModal");
 
-    var modalContent = document.getElementById("modalContent");
+    let modalContent = document.getElementById("modalContent");
+    let modalInputArea = document.getElementById("modalInput");
 
-    var clickedDiv = e.target;
+    let clickedDiv = e.target;
 
+    // Move the modal to the correct area
     modalContent.style.left = clickedDiv.parentElement.getBoundingClientRect().left+'px';
     modalContent.style.top = clickedDiv.parentElement.getBoundingClientRect().top+'px';
 
     modalContent.style.width = clickedDiv.parentElement.getBoundingClientRect().width+'px';
     modalContent.style.height = clickedDiv.parentElement.getBoundingClientRect().height+'px';
+
+    // Set the modal input area text to the text in the clicked box
+    if (clickedDiv.innerHTML == "") {
+        if (clickedDiv.id.includes("pHeader")) {
+            modalInputArea.value = "Enter Card Title";
+        } else if (clickedDiv.id.includes("pDesc")) {
+            modalInputArea.value = "Enter Card Description";
+        }
+    } else {
+        modalInputArea.value = clickedDiv.innerHTML;
+    }
     
     // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+    let span = document.getElementsByClassName("close")[0];
 
     // When the user clicks the button, open the modal 
     modal.style.display = "block";
 
-    // When the user clicks on <span> (x), close the modal
+    // When the user clicks on save, close the modal
     span.onclick = function() {
+        clickedDiv.innerHTML = modalInputArea.value;
         modal.style.display = "none";
     }
 
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
+    // window.onclick = function(event) {
+    //     if (event.target == modal) {
+    //         modal.style.display = "none";
+    //     }
+    // }
 }
 
 const checkIfList = (entry) => {
@@ -108,6 +169,7 @@ const checkIfList = (entry) => {
             // Changing the FIRST child's class and id name.
             entry.target.children[0].id = entry.target.children[0].id + "List";
             entry.target.children[0].classList.remove('divDrag');
+            entry.target.children[0].children[0].style.height = '20px';
             entry.target.children[0].classList.add('divDragList');
             
             // Changing the SECOND child's class and id name.

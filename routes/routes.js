@@ -73,10 +73,13 @@ exports.parseCreateData = (req, res) => {
 
 exports.welcome = (req, res) => {
     db.findAccount(req.session.user.username, (account) => {
-        res.render('welcome', {
-            config,
-            name: account.full_name,
-            navBar: getNavBar(req)
+        db.findBoardsIdsForUser(req.session.user.username, ids => {
+            res.render('welcome', {
+                config,
+                navBar: getNavBar(req),
+                name: account.full_name,
+                ids
+            });
         });
     });
 }
