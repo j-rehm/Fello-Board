@@ -120,6 +120,7 @@ exports.loadBoardFromId = (req, res) => {
             res.render('board', {
                 config,
                 navBar: getNavBar(req),
+                boardName: board.name,
                 boardData: board.boardData
             });
             res.send(board.id);
