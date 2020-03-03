@@ -2,8 +2,11 @@ extends layout
 
 block content
     //Can use same class names for color stuff, but id's need to be unique
+    h3(id='boardTitle') #{boardName}
     div(id='addCardButton') Add Card
     div(id='saveButton') Save
+    div(id='trashCan')
+        img(src="../images/trash.jpg", alt="../images/trash.jpg" width=75, height=75)
     br
 
     if boardData

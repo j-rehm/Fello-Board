@@ -1,0 +1,8 @@
+extends layout
+
+block content
+    form(id='form' method='post' action='/board')
+        p #{config['boardFormData'][0]}
+            input(type='text' name='boardName' autocomplete='off' required='true')
+        p
+            input(id='btn' type='submit' value='Create Board')
