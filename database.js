@@ -155,8 +155,8 @@ const getNextBoardId = callback => {
     })
 };
 
-//Code
 
+//Code
 
 getNextBoardId(id => {
     if (id) {
