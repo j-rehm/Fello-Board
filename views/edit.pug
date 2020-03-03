@@ -2,3 +2,34 @@ extends layout
 
 block content
     h1 #{config['navigation'][4][0]}
+
+    h2 Current Information
+
+    h4 #{config['formData'][0]} #{username}
+    h4 #{config['formData'][2]} #{name}
+
+    form(id='form' method ='post' action='/edit')
+        p #{config['formData'][2]}
+            input(type='text' name='full_name' autocomplete='off' required='true')
+        p #{config['formData'][0]}
+            input(type='text' name='username' autocomplete='off' required='true')
+            if userTaken
+                p(id="error") #{config['auth'][1]}
+
+        div(class='pass')
+            p #{config['formData'][1]}
+                input(id='password' type='password' name='password' autocomplete='off' required='true')
+                input(type='checkbox' onClick='togglePassword()')
+                b Show Password
+                script(type='text/javascript').
+                    function togglePassword() {
+                        var elem = document.getElementById('password');
+                        console.log(elem.type);
+                        if (elem.type === 'password') {
+                            elem.type = 'text';
+                        } else {
+                            elem.type = 'password';
+                        }
+                    }
+        p
+            input(id='btn' type='submit' value='Update Info')

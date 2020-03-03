@@ -84,10 +84,18 @@ exports.welcome = (req, res) => {
 }
 
 exports.edit = (req, res) => {
-    res.render('edit', {
-        config,
-        navBar: getNavBar(req)
+    db.findAccount(req.session.user.username, (account) => {
+        res.render('edit', {
+            config,
+            navBar: getNavBar(req),
+            name: account.full_name,
+            username: account.username,
+        });
     });
+}
+
+exports.updateUserData = (req, res) => {
+
 }
 
 exports.board = (req, res) => {
@@ -126,7 +134,7 @@ exports.loadBoardFromId = (req, res) => {
                 boardData: board.boardData
             });
         } else {
-            res.redirect('/home');
+            res.redirect('/');
         }
     });
 }
