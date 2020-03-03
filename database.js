@@ -62,6 +62,7 @@ let nextId = 0;
  * Creates a new board with a  and stores it in the database
  * @param {string} name Name of the board to be created
  * @param {string} username Username of user who created the page
+ * @returns The id of the board created
  */
 exports.createBoard = (name, username) => {
     let id = nextId++;

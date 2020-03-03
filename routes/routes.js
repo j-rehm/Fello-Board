@@ -3,10 +3,10 @@ const bcrypt = require('bcrypt-nodejs');
 const db = require('../database.js');
 
 exports.index = (req, res) => {
-  res.render('index', {
-      config,
-      navBar: getNavBar(req)
-  }); 
+    res.render('index', {
+        config,
+        navBar: getNavBar(req)
+    }); 
 }
 
 exports.login = (req, res) => {
@@ -118,6 +118,7 @@ exports.createBoard = (req, res) => {
 }
 
 exports.parseBoardData = (req, res) => {
+    // console.log(req.body);
     db.updateBoardData(req.body.id, req.body.boardData);
     res.send();
 }
@@ -128,10 +129,10 @@ exports.loadBoardFromId = (req, res) => {
             res.render('board', {
                 config,
                 navBar: getNavBar(req),
+                boardId : board.id,
                 boardName: board.name,
                 boardData: board.boardData
             });
-            res.send(board.id);
         } else {
             res.redirect('/');
         }
@@ -163,9 +164,5 @@ const getNavBar = req => {
 
 // Test function
 exports.test = (req, res) => {
-    // db.findBoardsIdsForUser(req.params.x, ids => {
-    //     res.json(ids);
-    // });
-
-    console.log(req.body);
+    
 }

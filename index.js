@@ -27,6 +27,13 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use((req, res, next) => {
+    res.sendData = data => {
+        console.log(data);
+    };
+    next();
+});
+
 const checkAuth = (req, res, next) => {
     if(req.session.user && req.session.user.isAuthenticated) {
         next();
@@ -50,9 +57,9 @@ app.post('/edit', checkAuth, routes.updateUserData);
 app.get('/board', checkAuth, routes.getBoardName);
 app.post('/board', urlEncodedParser, routes.createBoard);
 app.post('/updateBoard', urlEncodedParser, routes.parseBoardData);
-app.get('/board/:id', urlEncodedParser, routes.loadBoardFromId)
+app.get('/board/:id', checkAuth, routes.loadBoardFromId)
 
 // app.get('/test/:x', routes.test);
-app.post('/test', routes.test);
+app.get('/test', routes.test);
 
 app.listen(3000);

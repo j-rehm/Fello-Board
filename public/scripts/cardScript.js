@@ -5,39 +5,6 @@ const modalInput = document.getElementById('modalInput');
 
 var counter = 0;
 
-const editField = (e) => {
-    // Get the modal
-    var modal = document.getElementById("myModal");
-
-    var modalContent = document.getElementById("modalContent");
-
-    var clickedDiv = e.target;
-
-    modalContent.style.left = clickedDiv.parentElement.getBoundingClientRect().left+'px';
-    modalContent.style.top = clickedDiv.parentElement.getBoundingClientRect().top+'px';
-
-    modalContent.style.width = clickedDiv.parentElement.getBoundingClientRect().width+'px';
-    modalContent.style.height = clickedDiv.parentElement.getBoundingClientRect().height+'px';
-    
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal 
-    modal.style.display = "block";
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-    
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-}
-
 const drag = (elmnt) => {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     
@@ -57,7 +24,7 @@ const drag = (elmnt) => {
     
     const elementDrag = (e) => {
         // Tilts the card and tones the transparency down.
-        elmnt.parentElement.style.transform = 'rotate(5deg)';
+        elmnt.parentElement.style.transform = 'rotate(2.5deg)';
         elmnt.parentElement.style.opacity = '0.35';
         elmnt.style.opacity = '0.35';
         elmnt.parentElement.children[1].style.opacity = '0.35';
@@ -127,6 +94,7 @@ const editField = (e) => {
         } else if (clickedDiv.id.includes("pDesc")) {
             modalInputArea.value = "Enter Card Description";
         }
+        clickedDiv.style.border = '2px solid grey';
     } else {
         modalInputArea.value = clickedDiv.innerHTML;
     }
@@ -140,6 +108,7 @@ const editField = (e) => {
     // When the user clicks on save, close the modal
     span.onclick = function() {
         clickedDiv.innerHTML = modalInputArea.value;
+        clickedDiv.style.border = "none";
         modal.style.display = "none";
     }
 
@@ -154,12 +123,12 @@ const editField = (e) => {
 const checkIfList = (entry) => {
     const cr = entry.contentRect;
     // Resizes the divInfo element
-    if (entry.target.getBoundingClientRect().height > 325) {
+    if (cr.height >= 325) {
         entry.target.children[1].style.height = `${entry.target.getBoundingClientRect().height - entry.target.children[0].getBoundingClientRect().height}px`;
     }
 
     // Checking the size of a card being resized
-    if (cr.height >= 600 && cr.width >= 1000) {
+    if ((cr.height >= 600 && cr.width >= 1000) && (entry.target.children[1].innerHTML == "")) {
         // If a card is a list but reaches a certain size, it will become a list element.
         if (!(/list/gmi.test(entry.target.id))) {
             entry.target.id = entry.target.id + 'List';
@@ -236,6 +205,7 @@ const addNewCard = (e) => {
     divInfo.id = `info${counter}`;
 
     divInfo.style.minHeight = '185px';
+    divInfo.style.height = '70%';
     divInfo.style.minWidth = '300px';
     divInfo.style.width = childDiv.style.width;
     
@@ -260,9 +230,6 @@ const addNewCard = (e) => {
     dragDiv.appendChild(header);
     divInfo.appendChild(desc);
     
-    header.style.height = "15px";
-    desc.style.height = "15px";
-    
     header.onclick = editField;
     desc.onclick = editField;
     
@@ -271,9 +238,9 @@ const addNewCard = (e) => {
     dragDiv.id = `info${counter}Header`;
     
     dragDiv.style.minHeight = '15px';
+    dragDiv.style.height = '30%';
     dragDiv.style.minWidth = '300px';
     dragDiv.style.width = childDiv.style.width;
-    dragDiv.style.height = '52px';
 
     divInfo.style.height = `${childDiv.getBoundingClientRect().height - dragDiv.getBoundingClientRect().height}px`;
 
@@ -289,7 +256,7 @@ const addNewCard = (e) => {
     
     // Observe one or multiple elements
     ro.observe(childDiv);
-    
+
     [].forEach.call(divInfos, function (divInfo) {
         drag(document.getElementById(`${divInfo.id}`));
     });

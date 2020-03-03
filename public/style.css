@@ -91,15 +91,15 @@ body{
 }
 
 .cardHeader {
-    margin: 5px;
-    padding: 0px;
-    border: 2px solid black;
+    padding: 5px;
+    height: 15px;
+    border: 2px solid grey;
 }
 
 .cardDesc {
-    margin: 5px;
-    padding: 0px;
-    border: 2px solid black;
+    height: 15px;
+    padding: 5px;
+    border: 2px solid grey;
 }
 
 h1 {
