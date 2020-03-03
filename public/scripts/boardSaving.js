@@ -7,9 +7,16 @@ const sendBoardData = () => {
 
     console.log("Sending board data...");
 
-    xhr.open("POST", '/board');
-    xhr.setRequestHeader('Content-Type', 'text/plain;charset=UTF-8');
-    xhr.send(stringBoardData);
+    // xhr.open("POST", '/board');
+    // xhr.setRequestHeader('Content-Type', 'text/plain;charset=UTF-8');
+    // xhr.send(stringBoardData);
+
+    xhr.open("POST", '/updateBoard');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+        id: 0,
+        boardData: stringBoardData
+    }));
 };
 
 saveButton.onclick = sendBoardData;
