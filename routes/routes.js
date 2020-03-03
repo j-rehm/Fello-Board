@@ -3,10 +3,10 @@ const bcrypt = require('bcrypt-nodejs');
 const db = require('../database.js');
 
 exports.index = (req, res) => {
-  res.render('index', {
-      config,
-      navBar: getNavBar(req)
-  }); 
+    res.render('index', {
+        config,
+        navBar: getNavBar(req)
+    }); 
 }
 
 exports.login = (req, res) => {
@@ -154,9 +154,5 @@ const getNavBar = req => {
 
 // Test function
 exports.test = (req, res) => {
-    // db.findBoardsIdsForUser(req.params.x, ids => {
-    //     res.json(ids);
-    // });
-
-    console.log(req.body);
+    
 }
