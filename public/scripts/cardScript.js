@@ -38,10 +38,6 @@ const editField = (e) => {
     }
 }
 
-const test = () =>{
-    console.log('test');
-}
-
 const drag = (elmnt) => {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     
@@ -60,13 +56,8 @@ const drag = (elmnt) => {
     document.getElementById(`${elmnt.id}Header`).onmousedown = dragMouseDown;
     
     const elementDrag = (e) => {
-        let previousPos = e.target.getBoundingClientRect().x;
         // Tilts the card and tones the transparency down.
-        if (previousPos < e.target.getBoundingClientRect().x) {
-            elmnt.parentElement.style.transform = 'rotate(5deg)';
-        } else {
-            elmnt.parentElement.style.transform = 'rotate(-5deg)';
-        }
+        elmnt.parentElement.style.transform = 'rotate(5deg)';
         elmnt.parentElement.style.opacity = '0.35';
         elmnt.style.opacity = '0.35';
         elmnt.parentElement.children[1].style.opacity = '0.35';
