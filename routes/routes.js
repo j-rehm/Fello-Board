@@ -95,7 +95,11 @@ exports.edit = (req, res) => {
 }
 
 exports.updateUserData = (req, res) => {
-
+    db.findAccount(req.body.username, (account) => {
+        if(account) {
+            
+        }
+    });
 }
 
 exports.board = (req, res) => {
