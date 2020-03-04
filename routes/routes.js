@@ -72,12 +72,12 @@ exports.parseCreateData = (req, res) => {
 
 exports.welcome = (req, res) => {
     db.findAccount(req.session.user.username, (account) => {
-        db.findBoardsIdsForUser(req.session.user.username, ids => {
+        db.findBoardsForUser(req.session.user.username, boards => {
             res.render('welcome', {
                 config,
                 navBar: getNavBar(req),
                 name: account.full_name,
-                ids
+                boards
             });
         });
     });
@@ -118,8 +118,7 @@ exports.createBoard = (req, res) => {
 }
 
 exports.parseBoardData = (req, res) => {
-    console.log(req.text);
-    // db.updateBoardData(req.session.boardId, req.text);
+    db.updateBoardData(req.session.board.id, req.text);
     res.send();
 }
 
@@ -157,7 +156,9 @@ const destroySession = req => {
     }
 }
 const setSessionBoardId = (req, boardId) => {
-    req.session.boardId = boardId;
+    req.session.board = {
+        id: boardId
+    };
 }
 
 // Determine if user is authenticated
