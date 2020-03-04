@@ -3,26 +3,34 @@ extends layout
 block content
     h1 #{config['navigation'][4][0]}
 
-    h2 Current Information
-
-    h4 #{config['formData'][0]} #{username}
-    h4 #{config['formData'][2]} #{name}
-
     form(id='form' method ='post' action='/edit')
         p #{config['formData'][2]}
-            input(type='text' name='full_name' autocomplete='off' required='true')
+            input(type='text' name='full_name' autocomplete='off' required='true' value=full_name)
         p #{config['formData'][0]}
-            input(type='text' name='username' autocomplete='off' required='true')
+            input(type='text' name='username' autocomplete='off' required='true' value=username)
 
         div(class='pass')
-            p #{config['formData'][1]}
-                input(id='password' type='password' name='password' autocomplete='off' required='true')
-                input(type='checkbox' onClick='togglePassword()')
+            p #{config['formData'][4]}
+                input(id='current_password' type='password' name='current_password' autocomplete='off' required='true')
+                input(type='checkbox' onClick='toggleCurrentPassword()')
                 b Show Password
                 script(type='text/javascript').
-                    function togglePassword() {
-                        var elem = document.getElementById('password');
-                        console.log(elem.type);
+                    function toggleCurrentPassword() {
+                        var elem = document.getElementById('current_password');
+                        if (elem.type === 'password') {
+                            elem.type = 'text';
+                        } else {
+                            elem.type = 'password';
+                        }
+                    }
+        div(class='pass')
+            p #{config['formData'][5]}
+                input(id='new_password' type='password' name='new_password' autocomplete='off' required='true')
+                input(type='checkbox' onClick='toggleNewPassword()')
+                b Show Password
+                script(type='text/javascript').
+                    function toggleNewPassword() {
+                        var elem = document.getElementById('new_password');
                         if (elem.type === 'password') {
                             elem.type = 'text';
                         } else {
@@ -31,3 +39,7 @@ block content
                     }
         p
             input(id='btn' type='submit' value='Update Info')
+        if userTaken
+            p(id="error") #{config['auth'][1]}
+        if userInvalid
+            p(id="error") #{config['auth'][2]}

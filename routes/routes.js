@@ -88,16 +88,50 @@ exports.edit = (req, res) => {
         res.render('edit', {
             config,
             navBar: getNavBar(req),
-            name: account.full_name,
-            username: account.username,
+            full_name: account.full_name,
+            username: account.username
         });
     });
 }
 
 exports.updateUserData = (req, res) => {
-    db.findAccount(req.body.username, (account) => {
-        if(account) {
-            
+    db.findAccount(req.body.username, otherAccount => {
+        if (otherAccount) { // TODO username is already taken
+            db.findAccount(req.session.user.username, account => {
+                res.render('edit', {
+                    config,
+                    navBar: getNavBar(req),
+                    full_name: account.full_name,
+                    username: account.username,
+                    userTaken: true
+                });
+            });
+        } else { // TODO username is not already taken
+            db.findAccount(req.session.user.username, account => {
+                bcrypt.compare(req.body.current_password, account.hashed_password, (err, result) => {
+                    if (result) { // TODO current password matches
+                        bcrypt.hash(req.body.new_password, null, null, (err, hashed_password) => {
+                            db.updateAccount(req.session.user.username, {
+                                full_name: req.body.full_name,
+                                username: req.body.username,
+                                hashed_password
+                            });
+                            createSession(req);
+                            res.redirect('/welcome');
+                        });
+                    } else { // TODO current password does not match
+                        res.render('edit', {
+                            config,
+                            navBar: getNavBar(req),
+                            full_name: account.full_name,
+                            username: account.username,
+                            userInvalid: true
+                        });
+                    }
+                });
+                
+            });
+
         }
     });
 }

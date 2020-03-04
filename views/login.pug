@@ -23,8 +23,8 @@ block content
                     }
         p
             input(id='btn' type='submit' value='Log In')
-        if userInvalid
-            p(id="error") #{config['auth'][0]}
+        if userTaken
+            p(id="error") #{config['auth'][1]}
 
     a(href='create')
         div(class='create_account') #{config['formData'][3]}

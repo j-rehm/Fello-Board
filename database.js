@@ -46,6 +46,16 @@ exports.findAccount = async (username, callback) => {
     });
 }
 
+exports.updateAccount = (username, newInfo) => {
+    UserAccount.updateOne({ "username": username }, { $set: {
+        "full_name": newInfo.full_name,
+        "username": newInfo.username,
+        "hashed_password": newInfo.hashed_password
+    }}, (err, result) => {
+        handleIfError(err);
+    });
+}
+
 
 // Board CRUD
 
@@ -105,7 +115,6 @@ exports.findBoardsForUser = async (username, callback) => {
                 board.name
             ]);
         });
-        console.log(boards);
         callback(boards);
     });
 }
@@ -123,7 +132,6 @@ exports.readBoardData = (board) => {
 exports.updateBoardData = (id, newBoardData) => {
     Board.updateOne({ "id": id }, { $set: { "boardData": newBoardData } }, (err, result) => {
         handleIfError(err);
-        // console.log(result);
     });
 };
 

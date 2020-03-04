@@ -8,17 +8,20 @@
         ["Fello Board", ""]
     ],
     "formData":[
-        "Username: ", 
-        "Password: ", 
+        "Username: ",
+        "Password: ",
         "Full Name:",
-        "Don't have an account? Click here!"
+        "Don't have an account? Click here!",
+        "Current Password: ",
+        "New Password: "
     ],
     "boardFormData":[
         "Board Name: "
     ],
     "auth":[
         "Username or Password does not match.",
-        "Username already taken."
+        "Username already taken.",
+        "Password does not match."
     ], 
     "authNavBar":[
         ["Fello Board", "/", "title", ""],
