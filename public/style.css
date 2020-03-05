@@ -195,17 +195,58 @@ input[type=submit]:hover {
     margin: 0px 0px 0px 130px;
 }
 
+#sideContent{
+    padding-top: 20px;
+    float: left;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+#boardTitle{
+    text-decoration: none;
+    text-align: center;
+    color: #333;
+    display: block;
+    font-size: 28pt;
+}
+
+#boardDelete{
+    display: block;
+    color: rgb(255, 0, 0);
+    text-align: center;
+    text-transform: uppercase;
+}
+
 #error {
     color: rgb(255, 0, 0);
 }
 
 #navBar{
+    background-color: #333;
+    margin: auto;
+    padding: 0;
+    z-index: 20;
+    overflow-x: hidden;
+    width: 100%;
+    float: left;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+#boardList{
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
-    background-color: #333;
-    z-index: 20;
 }
   
 li {
@@ -214,6 +255,9 @@ li {
 
 .log_li {
     float: right;
+    position: fixed;
+    top: 0px;
+    right: 0px;
 }
 
 .nav_item {
@@ -235,6 +279,7 @@ li {
 
 .nav_logout{
     border-right: 0;
+    background-color: #333;
 }
 
 .nav_logout:hover {
@@ -243,6 +288,7 @@ li {
 
 .nav_login{
     border-right: 0;
+    background-color: #333;
 }
 
 .nav_login:hover {

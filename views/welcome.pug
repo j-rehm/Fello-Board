@@ -13,10 +13,11 @@ block content
 
     h1 #{config['navigation'][2][0]}, #{name}
 
-    ul(class="boardList")
-        each board in boards
-            li
-                a(href="/board/" + board[0])
-                    p= board[1]
-                a(href="/deleteBoard/" + board[0])
-                    p Delete
+    div
+        ul(id="boardList")
+            each board in boards
+                li
+                    a(href="/board/" + board[0])
+                        h2(id="boardTitle")= board[1]
+                    a(href="/deleteBoard/" + board[0])
+                        p(id="boardDelete") Delete

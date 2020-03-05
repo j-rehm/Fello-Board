@@ -4,7 +4,17 @@ const modalInput = document.getElementById('modalInput');
 const navBar = document.getElementById('navBar');
 const image = document.getElementById('image');
 
-var counter = parentDiv.childElementCount;
+
+var childs = parentDiv.children;
+
+var maxElementID = 0;
+[].forEach.call(childs, function (child) {
+    let idNum = child.id.substring(8, child.id.length);
+    
+    if (idNum > maxElementID) maxElementID = idNum;
+});
+
+var counter = parseInt(maxElementID) + 1;
 
 const drag = (elmnt) => {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -125,19 +135,18 @@ const editField = (e) => {
     // When the user clicks the button, open the modal 
     modal.style.display = "block";
 
+    // Method to remove html tags from text
+    function strip(html){
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        return doc.body.textContent || "";
+    }
+
     // When the user clicks on save, close the modal
     span.onclick = function() {
-        clickedDiv.innerHTML = modalInputArea.value;
+        clickedDiv.innerHTML = strip(modalInputArea.value);
         clickedDiv.style.border = "none";
         modal.style.display = "none";
     }
-
-    // When the user clicks anywhere outside of the modal, close it
-    // window.onclick = function(event) {
-    //     if (event.target == modal) {
-    //         modal.style.display = "none";
-    //     }
-    // }
 }
 
 const checkIfList = (entry) => {
@@ -284,6 +293,7 @@ const addDrags = () => {
     var divInfos = document.getElementsByClassName("divInfo");
 
     [].forEach.call(divInfos, function (divInfo) {
+        divInfo.style.height = '70%';
         drag(document.getElementById(`${divInfo.id}`));
     });
 }
