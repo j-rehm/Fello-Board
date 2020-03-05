@@ -4,7 +4,7 @@ html
         link(href='/style.css' rel='stylesheet')
     body
         header
-            ul
+            ul(id='navBar')
                 each val in navBar
                     li(class=val[3])
                         a(class=val[2] href=val[1]) #{val[0]}
