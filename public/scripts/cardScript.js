@@ -2,8 +2,19 @@ const cardButton = document.getElementById('addCardButton');
 const parentDiv = document.getElementById('parentDiv');
 const modalInput = document.getElementById('modalInput');
 const navBar = document.getElementById('navBar');
+const image = document.getElementById('image');
 
-var counter = parentDiv.childElementCount;
+
+var childs = parentDiv.children;
+
+var maxElementID = 0;
+[].forEach.call(childs, function (child) {
+    let idNum = child.id.substring(8, child.id.length);
+    
+    if (idNum > maxElementID) maxElementID = idNum;
+});
+
+var counter = parseInt(maxElementID) + 1;
 
 const drag = (elmnt) => {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -49,14 +60,16 @@ const drag = (elmnt) => {
         var minLeftPos = cardButtonRect.left + cardButtonRect.width + 5;
         
         // Make sure it isnt too high up
-        if (elmnt.parentElement.getBoundingClientRect().top < minHeight) {
+        if (elmnt.parentElement.getBoundingClientRect().top < minHeight - 8) {
             elmnt.parentElement.style.top = minHeight + "px";
         }
         
         // Make sure it isnt too far left
-        if (elmnt.parentElement.getBoundingClientRect().left < minLeftPos) {
+        if (elmnt.parentElement.getBoundingClientRect().left < minLeftPos - 8) {
             elmnt.parentElement.style.left = minLeftPos + "px";
         }
+
+        checkIfOverTrashIcon(elmnt, e);
     }
     
     const closeDragElement = (e) => {
@@ -69,6 +82,22 @@ const drag = (elmnt) => {
         elmnt.parentElement.style.opacity = '1';
         elmnt.style.opacity = '1';
         elmnt.parentElement.children[1].style.opacity = '1';
+    }
+}
+
+const checkIfOverTrashIcon = (element, e) => {
+    let imgX = image.getBoundingClientRect().left;
+    let imgW = image.getBoundingClientRect().width;
+    let imgY = image.getBoundingClientRect().top;
+    let imgH = image.getBoundingClientRect().height;
+
+    let eX = e.clientX;
+    let eY = e.clientY;
+
+    if ((imgX + imgW >= eX && imgX <= eX) && (imgY + imgH >= eY && imgY <= eY)) {
+        parentDiv.removeChild(element.parentElement);
+        document.onmouseup = null;
+        document.onmousemove = null;
     }
 }
 
@@ -106,19 +135,18 @@ const editField = (e) => {
     // When the user clicks the button, open the modal 
     modal.style.display = "block";
 
+    // Method to remove html tags from text
+    function strip(html){
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        return doc.body.textContent || "";
+    }
+
     // When the user clicks on save, close the modal
     span.onclick = function() {
-        clickedDiv.innerHTML = modalInputArea.value;
+        clickedDiv.innerHTML = strip(modalInputArea.value);
         clickedDiv.style.border = "none";
         modal.style.display = "none";
     }
-
-    // When the user clicks anywhere outside of the modal, close it
-    // window.onclick = function(event) {
-    //     if (event.target == modal) {
-    //         modal.style.display = "none";
-    //     }
-    // }
 }
 
 const checkIfList = (entry) => {
@@ -129,7 +157,7 @@ const checkIfList = (entry) => {
     }
 
     // Checking the size of a card being resized
-    if ((cr.height >= 600 && cr.width >= 1000) && (entry.target.children[1].innerHTML == "")) {
+    if ((cr.height >= 600 && cr.width >= 1000)) {
         // If a card is a list but reaches a certain size, it will become a list element.
         if (!(/list/gmi.test(entry.target.id))) {
             entry.target.id = entry.target.id + 'List';
@@ -265,6 +293,7 @@ const addDrags = () => {
     var divInfos = document.getElementsByClassName("divInfo");
 
     [].forEach.call(divInfos, function (divInfo) {
+        divInfo.style.height = '70%';
         drag(document.getElementById(`${divInfo.id}`));
     });
 }

@@ -168,13 +168,15 @@ const saveAccount = account => {
 }
 
 const getNextBoardId = callback => {
-    Board.find({}, (err, boards) => {
-        handleIfError(err);
-        if (boards.length > 0) {
-            boards.sort((a, b) => (a.id < b.id) ? 1 : -1);
-            callback(boards[0].id + 1);
+    let id = Math.floor(100000 + Math.random() * 900000);
+    this.findBoard(id, board => {
+        if (board) {
+            x = 1;
+            callback(getNextBoardId());
+        } else {
+            callback(id);
         }
-    })
+    });
 };
 
 const saveBoard = board => {
