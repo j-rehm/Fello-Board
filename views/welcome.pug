@@ -13,6 +13,15 @@ block content
 
     h1 #{config['navigation'][2][0]}, #{name}
 
-    each board in boards
-        a(href="/board/" + board[0])
-            p= board[1]
+    ul(class="boardList")
+        each board in boards
+            li
+                a(href="/board/" + board[0])
+                    p= board[1]
+                a(href="/deleteBoard/" + board[0])
+
+
+            [
+                [0, "Jeffrey's Board"],
+
+            ]
