@@ -2,6 +2,7 @@ const cardButton = document.getElementById('addCardButton');
 const parentDiv = document.getElementById('parentDiv');
 const modalInput = document.getElementById('modalInput');
 const navBar = document.getElementById('navBar');
+const image = document.getElementById('image');
 
 var counter = parentDiv.childElementCount;
 
@@ -57,6 +58,8 @@ const drag = (elmnt) => {
         if (elmnt.parentElement.getBoundingClientRect().left < minLeftPos) {
             elmnt.parentElement.style.left = minLeftPos + "px";
         }
+
+        checkIfOverTrashIcon(elmnt, e);
     }
     
     const closeDragElement = (e) => {
@@ -69,6 +72,22 @@ const drag = (elmnt) => {
         elmnt.parentElement.style.opacity = '1';
         elmnt.style.opacity = '1';
         elmnt.parentElement.children[1].style.opacity = '1';
+    }
+}
+
+const checkIfOverTrashIcon = (element, e) => {
+    let imgX = image.getBoundingClientRect().left;
+    let imgW = image.getBoundingClientRect().width;
+    let imgY = image.getBoundingClientRect().top;
+    let imgH = image.getBoundingClientRect().height;
+
+    let eX = e.clientX;
+    let eY = e.clientY;
+
+    if ((imgX + imgW >= eX && imgX <= eX) && (imgY + imgH >= eY && imgY <= eY)) {
+        parentDiv.removeChild(element.parentElement);
+        document.onmouseup = null;
+        document.onmousemove = null;
     }
 }
 
@@ -129,7 +148,7 @@ const checkIfList = (entry) => {
     }
 
     // Checking the size of a card being resized
-    if ((cr.height >= 600 && cr.width >= 1000) && (entry.target.children[1].innerHTML == "")) {
+    if ((cr.height >= 600 && cr.width >= 1000)) {
         // If a card is a list but reaches a certain size, it will become a list element.
         if (!(/list/gmi.test(entry.target.id))) {
             entry.target.id = entry.target.id + 'List';
