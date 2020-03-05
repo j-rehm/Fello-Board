@@ -4,7 +4,17 @@ const modalInput = document.getElementById('modalInput');
 const navBar = document.getElementById('navBar');
 const image = document.getElementById('image');
 
-var counter = parentDiv.childElementCount;
+
+var childs = parentDiv.children;
+
+var maxElementID = 0;
+[].forEach.call(childs, function (child) {
+    let idNum = child.id.substring(8, child.id.length);
+    
+    if (idNum > maxElementID) maxElementID = idNum;
+});
+
+var counter = parseInt(maxElementID) + 1;
 
 const drag = (elmnt) => {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
