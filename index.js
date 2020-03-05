@@ -72,4 +72,4 @@ app.post('/addUser', urlEncodedParser, routes.addUser);
 // app.get('/test/:x', routes.test);
 app.get('/test', routes.test);
 
-// app.listen(3000);
+app.listen(35);
