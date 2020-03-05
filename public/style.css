@@ -34,9 +34,9 @@ body{
 
 #trashCan {
     vertical-align: middle;
-    float: left;
     position: absolute;
-    bottom: 1px;
+    right: 0px;
+    bottom: 0px; 
 }
 
 .divDrag {
