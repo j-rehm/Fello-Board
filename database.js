@@ -168,8 +168,10 @@ const saveAccount = account => {
 }
 
 const getNextBoardId = callback => {
+    let id = Math.floor(100000 + Math.random() * 900000);
     this.findBoard(id, board => {
         if (board) {
+            x = 1;
             callback(getNextBoardId());
         } else {
             callback(id);
