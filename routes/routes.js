@@ -159,7 +159,7 @@ exports.parseBoardData = (req, res) => {
     res.send();
 }
 
-exports.loadBoardFromId = (req, res) => {
+exports.loadBoardById = (req, res) => {
     db.findBoard(req.params.id, board => {
         if (board) {
             setSessionBoardId(req, board.id);
@@ -173,6 +173,11 @@ exports.loadBoardFromId = (req, res) => {
             res.redirect('/welcome');
         }
     });
+}
+
+exports.deleteBoardById = (req, res) => {
+    db.deleteBoard(req.params.id);
+    res.redirect('/welcome');
 }
 
 
