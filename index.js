@@ -64,8 +64,8 @@ app.post('/edit', urlEncodedParser, routes.updateUserData);
 app.get('/board', checkAuth, routes.getBoardName);
 app.post('/board', urlEncodedParser, routes.createBoard);
 app.post('/updateBoard', urlEncodedParser, routes.parseBoardData);
-app.get('/board/:id', checkAuth, routes.loadBoardFromId)
-app.get('/deleteBoard/:id', checkAuth, routes.loadBoardFromId)
+app.get('/board/:id', checkAuth, routes.loadBoardById);
+app.get('/deleteBoard/:id', checkAuth, routes.deleteBoardById);
 
 // app.get('/test/:x', routes.test);
 app.get('/test', routes.test);

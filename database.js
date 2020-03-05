@@ -135,6 +135,12 @@ exports.updateBoardData = (id, newBoardData) => {
     });
 };
 
+exports.deleteBoard = id => {
+    Board.remove({ "id": id }, err => {
+        handleIfError(err);
+    });
+};
+
 // exports.addUsersToBoard = (board, users) => {
 //     users.forEach(username => {
 //         this.addUserToBoard(board, username);
@@ -145,11 +151,6 @@ exports.updateBoardData = (id, newBoardData) => {
 //     board.users.push(username);
 // };
 
-// exports.deleteBoard = id => {
-//     Board.remove({"id": id}, err => {
-//         handleIfError(err);
-//     });
-// };
 
 
 // Helper functions
