@@ -12,3 +12,7 @@ block content
     //-         div(class='button') Logout of your Account
 
     h1 #{config['navigation'][2][0]}, #{name}
+
+    each board in boards
+        a(href="/board/" + board[0])
+            p= board[1]

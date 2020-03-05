@@ -6,7 +6,7 @@ exports.index = (req, res) => {
     res.render('index', {
         config,
         navBar: getNavBar(req)
-    }); 
+    });
 }
 
 exports.login = (req, res) => {
@@ -72,12 +72,12 @@ exports.parseCreateData = (req, res) => {
 
 exports.welcome = (req, res) => {
     db.findAccount(req.session.user.username, (account) => {
-        db.findBoardsIdsForUser(req.session.user.username, ids => {
+        db.findBoardsForUser(req.session.user.username, boards => {
             res.render('welcome', {
                 config,
                 navBar: getNavBar(req),
                 name: account.full_name,
-                ids
+                boards
             });
         });
     });
@@ -88,16 +88,49 @@ exports.edit = (req, res) => {
         res.render('edit', {
             config,
             navBar: getNavBar(req),
-            name: account.full_name,
-            username: account.username,
+            full_name: account.full_name,
+            username: account.username
         });
     });
 }
 
 exports.updateUserData = (req, res) => {
-    db.findAccount(req.body.username, (account) => {
-        if(account) {
-            
+    db.findAccount(req.body.username, otherAccount => {
+        if (otherAccount) { // username is already taken
+            db.findAccount(req.session.user.username, account => {
+                res.render('edit', {
+                    config,
+                    navBar: getNavBar(req),
+                    full_name: account.full_name,
+                    username: account.username,
+                    userTaken: true
+                });
+            });
+        } else { // username is not already taken
+            db.findAccount(req.session.user.username, account => {
+                bcrypt.compare(req.body.current_password, account.hashed_password, (err, result) => {
+                    if (result) { // current password matches
+                        bcrypt.hash(req.body.new_password, null, null, (err, hashed_password) => {
+                            db.updateAccount(req.session.user.username, {
+                                full_name: req.body.full_name,
+                                username: req.body.username,
+                                hashed_password
+                            });
+                            createSession(req);
+                            res.redirect('/welcome');
+                        });
+                    } else { // current password does not match
+                        res.render('edit', {
+                            config,
+                            navBar: getNavBar(req),
+                            full_name: account.full_name,
+                            username: account.username,
+                            userInvalid: true
+                        });
+                    }
+                });
+                
+            });
         }
     });
 }
@@ -122,8 +155,7 @@ exports.createBoard = (req, res) => {
 }
 
 exports.parseBoardData = (req, res) => {
-    console.log(req.text);
-    // db.updateBoardData(req.session.boardId, req.text);
+    db.updateBoardData(req.session.board.id, req.text);
     res.send();
 }
 
@@ -161,7 +193,9 @@ const destroySession = req => {
     }
 }
 const setSessionBoardId = (req, boardId) => {
-    req.session.boardId = boardId;
+    req.session.board = {
+        id: boardId
+    };
 }
 
 // Determine if user is authenticated

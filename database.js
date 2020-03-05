@@ -40,9 +40,19 @@ exports.createAccount = (full_name, username, hashed_password) => {
  * @param {callback} callback Calback with account result. To be fired once an account has been found or if the account does not exist
  */
 exports.findAccount = async (username, callback) => {
-    UserAccount.findOne({"username": username}, (err, account) => {
+    UserAccount.findOne({ "username": username }, (err, account) => {
         handleIfError(err);
         callback(account);
+    });
+}
+
+exports.updateAccount = (username, newInfo) => {
+    UserAccount.updateOne({ "username": username }, { $set: {
+        "full_name": newInfo.full_name,
+        "username": newInfo.username,
+        "hashed_password": newInfo.hashed_password
+    }}, (err, result) => {
+        handleIfError(err);
     });
 }
 
@@ -69,7 +79,8 @@ exports.createBoard = (name, username) => {
     var board = new Board({
         id,
         name,
-        users: [username]
+        users: [username],
+        boardData: ""
     });
     board.save((err, board) => {
         handleIfError(err);
@@ -83,7 +94,7 @@ exports.createBoard = (name, username) => {
  * @param {callback} callback Callback with board result. To be fired once a board has been found or if the board does not exist
  */
 exports.findBoard = async (id, callback) => {
-    Board.findOne({"id": id}, (err, board) => {
+    Board.findOne({ "id": id }, (err, board) => {
         handleIfError(err);
         callback(board);
     });
@@ -94,14 +105,17 @@ exports.findBoard = async (id, callback) => {
  * @param {string} username Username to look for
  * @param {callback} callback Callback with list of numeric ids. To be fired when every board has been checked
  */
-exports.findBoardsIdsForUser = async (username, callback) => {
-    ids = []
-    Board.find({ "users": { $in: [username] } }, (err, boards) => {
+exports.findBoardsForUser = async (username, callback) => {
+    let boards = []
+    Board.find({ "users": { $in: [username] } }, (err, _boards) => {
         handleIfError(err);
-        boards.forEach(board => {
-            ids.push(board.id);
+        _boards.forEach(board => {
+            boards.push([
+                board.id,
+                board.name
+            ]);
         });
-        callback(ids);
+        callback(boards);
     });
 }
 
@@ -116,10 +130,8 @@ exports.readBoardData = (board) => {
 }
 
 exports.updateBoardData = (id, newBoardData) => {
-    this.findBoard(id, (err, board) => {
+    Board.updateOne({ "id": id }, { $set: { "boardData": newBoardData } }, (err, result) => {
         handleIfError(err);
-        board.boardData = newBoardData;
-        saveBoard(board);
     });
 };
 

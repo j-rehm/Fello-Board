@@ -13,7 +13,7 @@ block content
         div(id='container') !{boardData}
     else
         div(id='container')
-            div(id="parentDiv")
+            div(xmlns="http://www.w3.org/1999/xhtml" id="parentDiv")
 
     div(id="myModal" class="modal")
         div(id="modalContent" class="modal-content")
@@ -23,3 +23,4 @@ block content
 
     script(src='/scripts/cardScript.js')
     script(src='/scripts/boardSaving.js')
+    script(src='/scripts/boardLoading.js')
