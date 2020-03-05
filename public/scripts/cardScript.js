@@ -50,12 +50,12 @@ const drag = (elmnt) => {
         var minLeftPos = cardButtonRect.left + cardButtonRect.width + 5;
         
         // Make sure it isnt too high up
-        if (elmnt.parentElement.getBoundingClientRect().top < minHeight) {
+        if (elmnt.parentElement.getBoundingClientRect().top < minHeight - 8) {
             elmnt.parentElement.style.top = minHeight + "px";
         }
         
         // Make sure it isnt too far left
-        if (elmnt.parentElement.getBoundingClientRect().left < minLeftPos) {
+        if (elmnt.parentElement.getBoundingClientRect().left < minLeftPos - 8) {
             elmnt.parentElement.style.left = minLeftPos + "px";
         }
 
