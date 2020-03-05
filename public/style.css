@@ -9,7 +9,8 @@ body{
 }
 
 #addCardButton,
-#saveButton{
+#saveButton, 
+#addUserButton {
     color:rgb(228, 228, 228);
     border:1px solid #CCC;
     background: rgb(192, 51, 51);
@@ -23,7 +24,8 @@ body{
 }
 
 #addCardButton:hover,
-#saveButton:hover{
+#saveButton:hover, 
+#addUserButton:hover {
     color:red;
     box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
 }

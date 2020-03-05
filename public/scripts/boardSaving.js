@@ -12,4 +12,13 @@ const sendBoardData = () => {
     xhr.send(stringBoardData);
 };
 
+const addUserButton = document.getElementById('addUserButton');
+
+const goToAddUserPage = () => {
+    sendBoardData();
+    window.location.replace("/addUser");
+};
+
+
 saveButton.onclick = sendBoardData;
+addUserButton.onclick = goToAddUserPage;

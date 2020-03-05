@@ -18,6 +18,9 @@
     "boardFormData":[
         "Board Name: "
     ],
+    "usernameFormData":[
+        "Username to add: "
+    ],
     "auth":[
         "Username or Password does not match.",
         "Username already taken.",

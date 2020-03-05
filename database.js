@@ -46,11 +46,18 @@ exports.findAccount = async (username, callback) => {
     });
 }
 
-exports.updateAccount = (username, newInfo) => {
+/**
+ * Updates the current full_name, username, and hashed_password of a user account with given info
+ * @param {string} username Username of account to find
+ * @param {string} full_name New full name to update account with
+ * @param {string} new_username New username to update account with
+ * @param {string} new_hashed_password New hashed password to update account with
+ */
+exports.updateAccount = (username, new_full_name, new_username, new_hashed_password) => {
     UserAccount.updateOne({ "username": username }, { $set: {
-        "full_name": newInfo.full_name,
-        "username": newInfo.username,
-        "hashed_password": newInfo.hashed_password
+        "full_name": new_full_name,
+        "username": new_username,
+        "hashed_password": new_hashed_password
     }}, (err, result) => {
         handleIfError(err);
     });
@@ -129,27 +136,42 @@ exports.readBoardData = (board) => {
     return boardData;
 }
 
+
+/**
+ * Updates the current boardData of a board with given boardData
+ * @param {Number} id Id of the board to update
+ * @param {string} newBoardData DOM string to update boardData with
+ */
 exports.updateBoardData = (id, newBoardData) => {
     Board.updateOne({ "id": id }, { $set: { "boardData": newBoardData } }, (err, result) => {
         handleIfError(err);
     });
 };
 
+/**
+ * Deletes the board with given id
+ * @param {Number} id Id of board to delete
+ */
 exports.deleteBoard = id => {
     Board.remove({ "id": id }, err => {
         handleIfError(err);
     });
 };
 
-// exports.addUsersToBoard = (board, users) => {
-//     users.forEach(username => {
-//         this.addUserToBoard(board, username);
-//     });
-// };
-
-// exports.addUserToBoard = (board, username) => {
-//     board.users.push(username);
-// };
+/**
+ * Adds a username to the users list of a board
+ * @param {Number} id Id of board to add username to
+ * @param {string} username Username to add to the user list
+ */
+exports.addUserToBoard = (id, username) => {
+    this.findBoard(id, board => {
+        let users = board.users;
+        users.push(username);
+        Board.updateOne({ "id": id }, { $set: { "users": users } }, (err, result) => {
+            handleIfError(err);
+        });
+    });
+};
 
 
 

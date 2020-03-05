@@ -1,0 +1,8 @@
+extends layout
+
+block content
+    form(id='form' method='post' action='/addUser')
+        p #{config["usernameFormData"][0]}
+            input(type='text' name='username' autocomplete='off' required='true')
+        p
+            input(id='btn' type='submit' value='Add User')

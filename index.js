@@ -66,6 +66,8 @@ app.post('/board', urlEncodedParser, routes.createBoard);
 app.post('/updateBoard', urlEncodedParser, routes.parseBoardData);
 app.get('/board/:id', checkAuth, routes.loadBoardById);
 app.get('/deleteBoard/:id', checkAuth, routes.deleteBoardById);
+app.get('/addUser', checkAuth, routes.getUsername);
+app.post('/addUser', urlEncodedParser, routes.addUser);
 
 // app.get('/test/:x', routes.test);
 app.get('/test', routes.test);

@@ -111,11 +111,7 @@ exports.updateUserData = (req, res) => {
                 bcrypt.compare(req.body.current_password, account.hashed_password, (err, result) => {
                     if (result) { // current password matches
                         bcrypt.hash(req.body.new_password ? req.body.new_password : "", null, null, (err, hashed_password) => {
-                            db.updateAccount(req.session.user.username, {
-                                full_name: req.body.full_name,
-                                username: req.body.username,
-                                hashed_password: (req.body.new_password ? hashed_password : account.hashed_password)
-                            });
+                            db.updateAccount(req.session.user.username, req.body.full_name, req.body.username, (req.body.new_password ? hashed_password : account.hashed_password));
                             createSession(req);
                             res.redirect('/welcome');
                         });
@@ -178,6 +174,18 @@ exports.loadBoardById = (req, res) => {
 exports.deleteBoardById = (req, res) => {
     db.deleteBoard(req.params.id);
     res.redirect('/welcome');
+}
+
+exports.getUsername = (req, res) => {
+    res.render('getUsername', {
+        config,
+        navBar: getNavBar(req)
+    })
+}
+
+exports.addUser = (req, res) => {
+    db.addUserToBoard(req.session.board.id, req.body.username);
+    res.redirect(`/board/${req.session.board.id}`);
 }
 
 
