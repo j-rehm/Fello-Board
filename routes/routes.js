@@ -96,7 +96,7 @@ exports.edit = (req, res) => {
 
 exports.updateUserData = (req, res) => {
     db.findAccount(req.body.username, otherAccount => {
-        if (otherAccount) { // username is already taken
+        if (req.session.user.username !== req.body.username && otherAccount) { // username is already taken
             db.findAccount(req.session.user.username, account => {
                 res.render('edit', {
                     config,
@@ -110,11 +110,11 @@ exports.updateUserData = (req, res) => {
             db.findAccount(req.session.user.username, account => {
                 bcrypt.compare(req.body.current_password, account.hashed_password, (err, result) => {
                     if (result) { // current password matches
-                        bcrypt.hash(req.body.new_password, null, null, (err, hashed_password) => {
+                        bcrypt.hash(req.body.new_password ? req.body.new_password : "", null, null, (err, hashed_password) => {
                             db.updateAccount(req.session.user.username, {
                                 full_name: req.body.full_name,
                                 username: req.body.username,
-                                hashed_password
+                                hashed_password: (req.body.new_password ? hashed_password : account.hashed_password)
                             });
                             createSession(req);
                             res.redirect('/welcome');
@@ -161,7 +161,7 @@ exports.parseBoardData = (req, res) => {
 
 exports.loadBoardById = (req, res) => {
     db.findBoard(req.params.id, board => {
-        if (board) {
+        if (board && board.users.includes(req.session.user.username)) {
             setSessionBoardId(req, board.id);
             res.render('board', {
                 config,
