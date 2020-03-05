@@ -1,7 +1,7 @@
 const cardButton = document.getElementById('addCardButton');
 const parentDiv = document.getElementById('parentDiv');
 const modalInput = document.getElementById('modalInput');
-
+const navBar = document.getElementById('navBar');
 
 var counter = 0;
 
@@ -43,8 +43,9 @@ const drag = (elmnt) => {
         elmnt.parentElement.style.left = (elmnt.parentElement.offsetLeft - pos1) + "px";
 
         var cardButtonRect = cardButton.getBoundingClientRect();
+        var navBarRect = navBar.getBoundingClientRect();
         
-        var minHeight = cardButtonRect.top + 5;
+        var minHeight = navBarRect.top + navBarRect.height + 5;
         var minLeftPos = cardButtonRect.left + cardButtonRect.width + 5;
         
         // Make sure it isnt too high up
@@ -198,7 +199,7 @@ const addNewCard = (e) => {
     childDiv.style.left = cardButton.getBoundingClientRect().left + cardButton.getBoundingClientRect().width + 5 + "px";
 
     // Move the card pos to be further up
-    childDiv.style.top = cardButton.getBoundingClientRect().top + 5 + "px";
+    childDiv.style.top = navBar.getBoundingClientRect().top + navBar.getBoundingClientRect().height + 5 + "px";
     
     let divInfo = document.createElement("DIV");
     divInfo.classList.add('divInfo');
