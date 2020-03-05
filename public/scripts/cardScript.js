@@ -294,6 +294,7 @@ const addDrags = () => {
     var divInfos = document.getElementsByClassName("divInfo");
 
     [].forEach.call(divInfos, function (divInfo) {
+        divInfo.style.height = '70%';
         drag(document.getElementById(`${divInfo.id}`));
     });
 }
