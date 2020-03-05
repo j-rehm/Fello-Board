@@ -243,9 +243,6 @@ const addNewCard = (e) => {
     dragDiv.style.width = childDiv.style.width;
 
     divInfo.style.height = `${childDiv.getBoundingClientRect().height - dragDiv.getBoundingClientRect().height}px`;
-
-    // Adds the drag function to the cards
-    var divInfos = document.getElementsByClassName("divInfo");
     
     // Adds a method that runs every time it detects the DIV being resized
     var ro = new ResizeObserver( entries => {
@@ -257,11 +254,33 @@ const addNewCard = (e) => {
     // Observe one or multiple elements
     ro.observe(childDiv);
 
-    [].forEach.call(divInfos, function (divInfo) {
-        drag(document.getElementById(`${divInfo.id}`));
-    });
+    addDrags();
 
     counter += 1;
 }
+
+const addDrags = () => {
+    // Adds the drag function to the cards
+    var divInfos = document.getElementsByClassName("divInfo");
+
+    [].forEach.call(divInfos, function (divInfo) {
+        drag(document.getElementById(`${divInfo.id}`));
+    });
+}
+
+const addClicks = () => {
+    var headers = document.getElementsByClassName("cardHeader");
+    var descs = document.getElementsByClassName("cardDesc");
+
+    [].forEach.call(headers, function (header) {
+        header.onclick = editField;
+    });
+    [].forEach.call(descs, function (desc) {
+        desc.onclick = editField;
+    });
+}
+
+addDrags();
+addClicks();
 
 cardButton.onclick = addNewCard;
