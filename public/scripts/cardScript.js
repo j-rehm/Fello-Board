@@ -2,8 +2,7 @@ const cardButton = document.getElementById('addCardButton');
 const parentDiv = document.getElementById('parentDiv');
 const modalInput = document.getElementById('modalInput');
 
-
-var counter = 0;
+var counter = parentDiv.childElementCount;
 
 const drag = (elmnt) => {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
