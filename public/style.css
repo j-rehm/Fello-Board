@@ -34,7 +34,7 @@ body{
 
 #trashCan {
     vertical-align: middle;
-    position: absolute;
+    position: fixed;
     right: 0px;
     bottom: 0px; 
 }
@@ -197,7 +197,7 @@ input[type=submit]:hover {
     color: rgb(255, 0, 0);
 }
 
-ul {
+#navBar{
     list-style-type: none;
     margin: 0;
     padding: 0;
