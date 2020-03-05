@@ -170,7 +170,7 @@ exports.loadBoardFromId = (req, res) => {
                 boardData: board.boardData
             });
         } else {
-            res.redirect('/');
+            res.redirect('/welcome');
         }
     });
 }
