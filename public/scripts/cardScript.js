@@ -135,19 +135,18 @@ const editField = (e) => {
     // When the user clicks the button, open the modal 
     modal.style.display = "block";
 
+    // Method to remove html tags from text
+    function strip(html){
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        return doc.body.textContent || "";
+    }
+
     // When the user clicks on save, close the modal
     span.onclick = function() {
-        clickedDiv.innerHTML = modalInputArea.value;
+        clickedDiv.innerHTML = strip(modalInputArea.value);
         clickedDiv.style.border = "none";
         modal.style.display = "none";
     }
-
-    // When the user clicks anywhere outside of the modal, close it
-    // window.onclick = function(event) {
-    //     if (event.target == modal) {
-    //         modal.style.display = "none";
-    //     }
-    // }
 }
 
 const checkIfList = (entry) => {
