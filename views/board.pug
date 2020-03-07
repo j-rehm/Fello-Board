@@ -2,8 +2,8 @@ extends layout
 
 block content
     //Can use same class names for color stuff, but id's need to be unique
+    h3(id='bTitle') #{boardName}
     div(id='sideContent')
-        h3(id='boardTitle') #{boardName}
         div(id='addCardButton') Add Card
         div(id='addUserButton') Share
         div(id='saveButton') Save
