@@ -236,7 +236,7 @@ const addNewCard = (e) => {
     divInfo.classList.add('divInfo');
     divInfo.id = `info${counter}`;
 
-    divInfo.style.height = '70%';
+    divInfo.style.height = '80%';
     divInfo.style.minWidth = '300px';
     divInfo.style.width = childDiv.style.width;
     
@@ -268,7 +268,7 @@ const addNewCard = (e) => {
     dragDiv.classList.add('divDrag');
     dragDiv.id = `info${counter}Header`;
     
-    dragDiv.style.height = '30%';
+    dragDiv.style.height = '20%';
     dragDiv.style.minWidth = '300px';
     dragDiv.style.width = childDiv.style.width;
 
