@@ -93,7 +93,10 @@ body{
 }
 
 .cardHeader {
+    font-size: 35px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     padding: 5px;
+    margin-top: 0px;
     height: 15px;
     border: 2px solid grey;
 }
@@ -101,6 +104,7 @@ body{
 .cardDesc {
     height: 15px;
     padding: 5px;
+    margin-top: 0px;
     border: 2px solid grey;
 }
 
