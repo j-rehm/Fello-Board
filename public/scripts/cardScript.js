@@ -236,7 +236,7 @@ const addNewCard = (e) => {
     divInfo.classList.add('divInfo');
     divInfo.id = `info${counter}`;
 
-    divInfo.style.height = '70%';
+    divInfo.style.height = '80%';
     divInfo.style.minWidth = '300px';
     divInfo.style.width = childDiv.style.width;
     
@@ -261,14 +261,14 @@ const addNewCard = (e) => {
     dragDiv.appendChild(header);
     divInfo.appendChild(desc);
     
-    header.onclick = editField;
-    desc.onclick = editField;
+    header.ondblclick = editField;
+    desc.ondblclick = editField;
     
     // Adds the class tag and id to "dragDiv"
     dragDiv.classList.add('divDrag');
     dragDiv.id = `info${counter}Header`;
     
-    dragDiv.style.height = '30%';
+    dragDiv.style.height = '20%';
     dragDiv.style.minWidth = '300px';
     dragDiv.style.width = childDiv.style.width;
 
@@ -322,10 +322,10 @@ const addClicks = () => {
     var descs = document.getElementsByClassName("cardDesc");
 
     [].forEach.call(headers, function (header) {
-        header.onclick = editField;
+        header.ondblclick = editField;
     });
     [].forEach.call(descs, function (desc) {
-        desc.onclick = editField;
+        desc.ondblclick = editField;
     });
 }
 
