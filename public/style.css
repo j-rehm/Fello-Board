@@ -93,8 +93,8 @@ h2#boardTitle:hover {
     z-index: 8;
     background-color: black;
     text-align: center;
-    box-shadow: 5px 5px 5px blue;
-    border: 1px solid blue;
+    box-shadow: 5px 5px 5px rgb(16, 32, 58);
+    border: 1px solid rgb(16, 32, 58);
 }
 
 .cardHeader {
