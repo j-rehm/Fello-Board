@@ -189,16 +189,15 @@ exports.getUsername = (req, res) => {
 }
 
 exports.addUser = (req, res) => {
-    db.addUserToBoard(req.session.board.id, req.body.username);
-    res.redirect(`/board/${req.session.board.id}`);
+    db.addUserToBoard(req.session.board.id, req.body.username, result => {
+        res.redirect(`/board/${req.session.board.id}`);
+    });
 }
 
 exports.removeUser = (req, res) => {
-    db.removeUserFromBoard(req.session.board.id, req.params.username);
-    res.redirect(`/board/${req.session.board.id}`);
-
-    // db.removeUserFromBoard(539682, req.params.username);
-    // res.redirect(`/`);
+    db.removeUserFromBoard(req.session.board.id, req.params.username, result => {
+        res.redirect(`/board/${req.session.board.id}`);
+    });
 }
 
 

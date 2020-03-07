@@ -39,6 +39,15 @@ h2#boardTitle:hover {
     text-decoration: underline;
 }
 
+div.row {
+    display: flex;
+    flex-direction: row;
+}
+p.board_user,
+p.board_x {
+    margin-top: 0;
+}
+
 #trashCan {
     vertical-align: middle;
     position: fixed;

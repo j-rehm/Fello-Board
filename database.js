@@ -163,17 +163,18 @@ exports.deleteBoard = id => {
  * @param {Number} id Id of board to add username to
  * @param {string} username Username to add to the user list
  */
-exports.addUserToBoard = (id, username) => {
+exports.addUserToBoard = (id, username, callback) => {
     this.findBoard(id, board => {
         let users = board.users;
         users.push(username);
         Board.updateOne({ "id": id }, { $set: { "users": users } }, (err, result) => {
             handleIfError(err);
+            callback(true);
         });
     });
 };
 
-exports.removeUserFromBoard = (id, username) => {
+exports.removeUserFromBoard = (id, username, callback) => {
     this.findBoard(id, board => {
         let users = board.users;
         let idx = users.indexOf(username);
@@ -182,6 +183,7 @@ exports.removeUserFromBoard = (id, username) => {
         }
         Board.updateOne({ "id": id }, { $set: { "users": users } }, (err, result) => {
             handleIfError(err);
+            callback(true);
         });
     });
 }

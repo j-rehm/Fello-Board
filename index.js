@@ -67,7 +67,6 @@ app.get('/board/:id', checkAuth, routes.loadBoardById);
 app.get('/deleteBoard/:id', checkAuth, routes.deleteBoardById);
 app.get('/addUser', checkAuth, routes.getUsername);
 app.post('/addUser', urlEncodedParser, routes.addUser);
-
 app.get('/removeUser/:username', routes.removeUser);
 
 // Catch-all

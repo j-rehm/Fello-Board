@@ -10,7 +10,9 @@ block content
         div(id="accountsList")
             h4(id="current") Shared with
             each val in users
-                p #{val} 
+                div(class="board_user_row row")
+                    p(class="board_user") #{val}
+                    a(href="/removeUser/" + val) X
     div(id='trashCan')
         img(id='image' src="../images/trashcan.png", alt="../images/trash.jpg" width=75, height=75)
     br
