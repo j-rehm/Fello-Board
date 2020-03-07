@@ -351,8 +351,9 @@ li {
 .title {
     margin-left: 30px;
     margin-right: 20px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 34pt;
+    font-family: 'Anton', sans-serif;
+    font-size: 30pt;
+    letter-spacing: 2px;
     color: #ffd700;
 }
 
