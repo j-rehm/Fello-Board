@@ -224,6 +224,14 @@ input[type=submit]:hover {
 #boardTitle{
     text-decoration: none;
     text-align: center;
+    color: #333;
+    display: block;
+    font-size: 28pt;
+}
+
+#bTitle{
+    text-decoration: none;
+    text-align: center;
     position: fixed;
     top: 30px;
     left: 0;
