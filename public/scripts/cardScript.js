@@ -173,11 +173,13 @@ const checkIfList = (entry) => {
             entry.target.children[0].classList.remove('divDrag');
             entry.target.children[0].children[0].style.height = '20px';
             entry.target.children[0].classList.add('divDragList');
+            entry.target.children[0].style.height = '10%';
             
             // Changing the SECOND child's class and id name.
             entry.target.children[1].id = entry.target.children[1].id + "List";
             entry.target.children[1].classList.remove('divInfo');
             entry.target.children[1].classList.add('divInfoList');
+            entry.target.children[1].style.height = '90%';
             // Removes the entry field for the info part of a card.
             entry.target.children[1].removeChild(entry.target.children[1].firstChild);
         }
@@ -192,11 +194,13 @@ const checkIfList = (entry) => {
             entry.target.children[0].id = (entry.target.children[0].id).replace(/list/gmi, '');
             entry.target.children[0].classList.remove('divDragList');
             entry.target.children[0].classList.add('divDrag');
+            entry.target.children[0].style.height = '20%';
             
             // Changing the SECOND child's class and id name.
             entry.target.children[1].id = (entry.target.children[1].id).replace(/list/gmi, '');
             entry.target.children[1].classList.remove('divInfoList');
             entry.target.children[1].classList.add('divInfo');
+            entry.target.children[1].style.height = '80%';
             // Adds the entry field for the info part of a card.
             let desc = document.createElement("P");
             
