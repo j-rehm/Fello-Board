@@ -216,7 +216,7 @@ input[type=submit]:hover {
     padding-top: 20px;
     float: left;
     position: fixed;
-    top: 0;
+    top: 40px;
     left: 0;
     right: 0;
 }
@@ -224,6 +224,10 @@ input[type=submit]:hover {
 #boardTitle{
     text-decoration: none;
     text-align: center;
+    position: fixed;
+    top: 30px;
+    left: 0;
+    right: 0;
     color: #333;
     display: block;
     font-size: 28pt;
