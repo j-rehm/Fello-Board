@@ -31,15 +31,17 @@ exports.validateLogin = (req, res) => {
                     createSession(req);
                     res.redirect('/welcome');
                 } else { // password does not match
-                    res.render('index', {
+                    res.render('login', {
                         config,
+                        navBar: getNavBar(req),
                         "userInvalid": true
                     });
                 }
             });
         } else { // username does not match
-            res.render('index', {
+            res.render('login', {
                 config,
+                navBar: getNavBar(req),
                 "userInvalid": true
             });
         }
@@ -54,16 +56,18 @@ exports.create = (req, res) => {
 }
 
 exports.parseCreateData = (req, res) => {
+    // let username = req.body.username.replace()
     db.findAccount(req.body.username, (account) => {
-        if(!account) {
+        if(!account && req.body.username.trim().length > 0) {
             bcrypt.hash(req.body.password, null, null, (err, hashed_password) => {
                 db.createAccount(req.body.full_name, req.body.username, hashed_password);
                 res.redirect('/');
             });
         } else {
-            console.log("Username is already taken!");
+            // console.log("Username is already taken!");
             res.render('create', {
                 config, 
+                navBar: getNavBar(req),
                 "userTaken": true
             });
         }
@@ -211,12 +215,7 @@ const setSessionBoardId = (req, boardId) => {
     };
 }
 
-// Determine if user is authenticated
+// Return the navBar object corresponding to the user's auth state
 const getNavBar = req => {
     return (req.session.user && req.session.user.isAuthenticated) ? config.authNavBar : config.unauthNavBar;
-}
-
-// Test function
-exports.test = (req, res) => {
-    
 }

@@ -49,7 +49,6 @@ const checkAuth = (req, res, next) => {
 
 // Routes
 
-// Unauthorized
 app.get('/', routes.index);
 app.get('/login', routes.login);
 app.post('/login', urlEncodedParser, routes.validateLogin);
@@ -57,7 +56,7 @@ app.get('/logout', routes.logout);
 app.get('/create', routes.create);
 app.post('/create', urlEncodedParser, routes.parseCreateData);
 
-// Authorized
+// Needs auth
 app.get('/welcome', checkAuth, routes.welcome);
 app.get('/edit', checkAuth, routes.edit);
 app.post('/edit', urlEncodedParser, routes.updateUserData);
@@ -68,5 +67,8 @@ app.get('/board/:id', checkAuth, routes.loadBoardById);
 app.get('/deleteBoard/:id', checkAuth, routes.deleteBoardById);
 app.get('/addUser', checkAuth, routes.getUsername);
 app.post('/addUser', urlEncodedParser, routes.addUser);
+
+// Catch-all
+app.get('/:x', routes.index);
 
 app.listen(8081);

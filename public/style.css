@@ -9,7 +9,7 @@ body{
 }
 
 #addCardButton,
-#saveButton, 
+#saveButton,
 #addUserButton {
     color:rgb(228, 228, 228);
     border:1px solid #CCC;
@@ -24,14 +24,19 @@ body{
 }
 
 #addCardButton:hover,
-#saveButton:hover, 
+#saveButton:hover,
 #addUserButton:hover {
     color:red;
     box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
 }
 
-#boardTitle{
-    max-width: 100px;
+h2#boardTitle {
+    margin-bottom: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+h2#boardTitle:hover {
+    /* color: rgb(0, 0, 0); */
+    text-decoration: underline;
 }
 
 #trashCan {
@@ -88,8 +93,8 @@ body{
     z-index: 8;
     background-color: black;
     text-align: center;
-    box-shadow: 5px 5px 5px blue;
-    border: 1px solid blue;
+    box-shadow: 5px 5px 5px rgb(16, 32, 58);
+    border: 1px solid rgb(16, 32, 58);
 }
 
 .cardHeader {
@@ -199,6 +204,14 @@ input[type=submit]:hover {
     margin: 0px 0px 0px 130px;
 }
 
+.currPass {
+    margin: 0px 0px 0px 80px;
+}
+
+.newPass {
+    margin: 0px 0px 0px 98px;
+}
+
 #sideContent{
     padding-top: 20px;
     float: left;
@@ -218,6 +231,7 @@ input[type=submit]:hover {
 
 #boardDelete{
     display: block;
+    margin-top: 0;
     color: rgb(255, 0, 0);
     text-align: center;
     text-transform: uppercase;
@@ -259,9 +273,6 @@ li {
 
 .log_li {
     float: right;
-    position: fixed;
-    top: 0px;
-    right: 0px;
 }
 
 .nav_item {
