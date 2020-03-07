@@ -9,7 +9,7 @@ block content
         p #{config['formData'][0]}
             input(type='text' name='username' autocomplete='off' required='true' value=username)
 
-        div(class='pass')
+        div(class='currPass')
             p #{config['formData'][4]}
                 input(id='current_password' type='password' name='current_password' autocomplete='off' required='true')
                 input(type='checkbox' onClick='toggleCurrentPassword()')
@@ -23,7 +23,7 @@ block content
                             elem.type = 'password';
                         }
                     }
-        div(class='pass')
+        div(class='newPass')
             p #{config['formData'][5]}
                 input(id='new_password' type='password' name='new_password' autocomplete='off')
                 input(type='checkbox' onClick='toggleNewPassword()')

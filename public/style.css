@@ -200,6 +200,14 @@ input[type=submit]:hover {
     margin: 0px 0px 0px 130px;
 }
 
+.currPass {
+    margin: 0px 0px 0px 80px;
+}
+
+.newPass {
+    margin: 0px 0px 0px 98px;
+}
+
 #sideContent{
     padding-top: 20px;
     float: left;
