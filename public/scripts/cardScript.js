@@ -31,7 +31,11 @@ const drag = (elmnt) => {
         document.onmousemove = elementDrag;
     }
     
-    document.getElementById(`${elmnt.id}Header`).onmousedown = dragMouseDown;
+    if (elmnt.id.includes("List")) {
+        document.getElementById(`${elmnt.id.replace(/list/gmi, '')}HeaderList`).onmousedown = dragMouseDown;
+    } else {
+        document.getElementById(`${elmnt.id}Header`).onmousedown = dragMouseDown;
+    }
     
     const elementDrag = (e) => {
         // Tilts the card and tones the transparency down.
@@ -291,10 +295,28 @@ const addNewCard = (e) => {
 const addDrags = () => {
     // Adds the drag function to the cards
     var divInfos = document.getElementsByClassName("divInfo");
+    var divInfosLists = document.getElementsByClassName("divInfoList");
+    // Adds a method that runs every time it detects the DIV being resized
+    var ro = new ResizeObserver( entries => {
+        for (let entry of entries) {
+            checkIfList(entry);
+        }
+    });
 
     [].forEach.call(divInfos, function (divInfo) {
         divInfo.style.height = '70%';
         drag(document.getElementById(`${divInfo.id}`));
+
+        // Observe one or multiple elements
+        ro.observe(divInfo.parentElement);
+    });
+
+    [].forEach.call(divInfosLists, function (divInfoList) {
+        divInfoList.style.height = '70%';
+        drag(document.getElementById(`${divInfoList.id}`));
+
+        // Observe one or multiple elements
+        ro.observe(divInfoList.parentElement);
     });
 }
 
