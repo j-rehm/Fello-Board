@@ -204,7 +204,6 @@ const checkIfList = (entry) => {
             desc.classList.add('cardDesc');
             desc.id = `pDesc${counter}`;
             
-            desc.style.height = "15px";
             desc.onclick = editField;
 
             entry.target.children[1].appendChild(desc);
@@ -223,7 +222,7 @@ const addNewCard = (e) => {
     childDiv.classList.add('divChild');
     childDiv.id = `divChild${counter}`;
     // Setting min width and height
-    childDiv.style.minHeight = '301px';
+    childDiv.style.minHeight = '289px';
     childDiv.style.minWidth = '322px';
     childDiv.style.padding = '0px';
 
@@ -237,7 +236,6 @@ const addNewCard = (e) => {
     divInfo.classList.add('divInfo');
     divInfo.id = `info${counter}`;
 
-    divInfo.style.minHeight = '185px';
     divInfo.style.height = '70%';
     divInfo.style.minWidth = '300px';
     divInfo.style.width = childDiv.style.width;
@@ -270,12 +268,11 @@ const addNewCard = (e) => {
     dragDiv.classList.add('divDrag');
     dragDiv.id = `info${counter}Header`;
     
-    dragDiv.style.minHeight = '15px';
     dragDiv.style.height = '30%';
     dragDiv.style.minWidth = '300px';
     dragDiv.style.width = childDiv.style.width;
 
-    divInfo.style.height = `${childDiv.getBoundingClientRect().height - dragDiv.getBoundingClientRect().height}px`;
+    divInfo.style.minHeight = childDiv.getBoundingClientRect().height - dragDiv.getBoundingClientRect().height + 'px';
     
     // Adds a method that runs every time it detects the DIV being resized
     var ro = new ResizeObserver( entries => {
@@ -285,7 +282,7 @@ const addNewCard = (e) => {
     });
     
     // Observe one or multiple elements
-    ro.observe(childDiv);
+    // ro.observe(childDiv);
 
     addDrags();
 
