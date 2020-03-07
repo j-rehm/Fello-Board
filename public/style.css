@@ -50,8 +50,8 @@ h2#boardTitle:hover {
     padding: 10px;
     cursor: move;
     z-index: 10; 
-    background-color: #2196F3;
-    color: #fff;
+    background-color: #ffd700;
+    color: #333;
 }
 .divDragList {
     padding: 10px;
@@ -65,8 +65,8 @@ h2#boardTitle:hover {
     padding: 10px;
     cursor: move;
     z-index: 10; 
-    background-color: white;
-    color: black;
+    background-color: #333;
+    color: white;
 }
 .divInfoList {
     padding: 10px;
@@ -107,6 +107,8 @@ h2#boardTitle:hover {
 }
 
 .cardDesc {
+    font-size: 20px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     height: 15px;
     padding: 5px;
     margin-top: 0px;
