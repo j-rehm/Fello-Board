@@ -9,8 +9,7 @@ body{
 }
 
 #addCardButton,
-#saveButton, 
-#addUserButton {
+#saveButton{
     color:rgb(228, 228, 228);
     border:1px solid #CCC;
     background: rgb(192, 51, 51);
@@ -24,8 +23,7 @@ body{
 }
 
 #addCardButton:hover,
-#saveButton:hover, 
-#addUserButton:hover {
+#saveButton:hover{
     color:red;
     box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
 }
@@ -219,6 +217,7 @@ input[type=submit]:hover {
 
 #boardDelete{
     display: block;
+    margin-top: 0;
     color: rgb(255, 0, 0);
     text-align: center;
     text-transform: uppercase;
@@ -260,9 +259,6 @@ li {
 
 .log_li {
     float: right;
-    position: fixed;
-    top: 0px;
-    right: 0px;
 }
 
 .nav_item {

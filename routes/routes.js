@@ -31,15 +31,17 @@ exports.validateLogin = (req, res) => {
                     createSession(req);
                     res.redirect('/welcome');
                 } else { // password does not match
-                    res.render('index', {
+                    res.render('login', {
                         config,
+                        navBar: getNavBar(req),
                         "userInvalid": true
                     });
                 }
             });
         } else { // username does not match
-            res.render('index', {
+            res.render('login', {
                 config,
+                navBar: getNavBar(req),
                 "userInvalid": true
             });
         }
@@ -64,7 +66,8 @@ exports.parseCreateData = (req, res) => {
             console.log("Username is already taken!");
             res.render('create', {
                 config, 
-                "userTaken": true
+                "userTaken": true,
+                navBar: getNavBar(req)
             });
         }
     });
