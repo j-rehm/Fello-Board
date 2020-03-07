@@ -57,7 +57,7 @@ h2#boardTitle:hover {
     padding: 10px;
     cursor: move;
     z-index: 9; 
-    background-color: red;
+    background-color: #333;
     color: #fff;
 }
 
@@ -72,7 +72,7 @@ h2#boardTitle:hover {
     padding: 10px;
     cursor: move;
     z-index: 9; 
-    background-color: grey;
+    background-color: rgb(240, 240, 240);
     color: black;
 }
 
