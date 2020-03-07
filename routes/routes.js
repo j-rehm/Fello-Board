@@ -56,18 +56,19 @@ exports.create = (req, res) => {
 }
 
 exports.parseCreateData = (req, res) => {
+    // let username = req.body.username.replace()
     db.findAccount(req.body.username, (account) => {
-        if(!account) {
+        if(!account && req.body.username.trim().length > 0) {
             bcrypt.hash(req.body.password, null, null, (err, hashed_password) => {
                 db.createAccount(req.body.full_name, req.body.username, hashed_password);
                 res.redirect('/');
             });
         } else {
-            console.log("Username is already taken!");
+            // console.log("Username is already taken!");
             res.render('create', {
                 config, 
-                "userTaken": true,
-                navBar: getNavBar(req)
+                navBar: getNavBar(req),
+                "userTaken": true
             });
         }
     });

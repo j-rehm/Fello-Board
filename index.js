@@ -68,4 +68,7 @@ app.get('/deleteBoard/:id', checkAuth, routes.deleteBoardById);
 app.get('/addUser', checkAuth, routes.getUsername);
 app.post('/addUser', urlEncodedParser, routes.addUser);
 
+// Catch-all
+app.get('/:x', routes.index);
+
 app.listen(8081);
