@@ -173,6 +173,19 @@ exports.addUserToBoard = (id, username) => {
     });
 };
 
+exports.removeUserFromBoard = (id, username) => {
+    this.findBoard(id, board => {
+        let users = board.users;
+        let idx = users.indexOf(username);
+        if (idx > -1) {
+            users.splice(idx, 1);
+        }
+        Board.updateOne({ "id": id }, { $set: { "users": users } }, (err, result) => {
+            handleIfError(err);
+        });
+    });
+}
+
 
 
 // Helper functions

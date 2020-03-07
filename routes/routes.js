@@ -192,6 +192,14 @@ exports.addUser = (req, res) => {
     res.redirect(`/board/${req.session.board.id}`);
 }
 
+exports.removeUser = (req, res) => {
+    db.removeUserFromBoard(req.session.board.id, req.params.username);
+    res.redirect(`/board/${req.session.board.id}`);
+
+    // db.removeUserFromBoard(539682, req.params.username);
+    // res.redirect(`/`);
+}
+
 
 // Helper methods
 
