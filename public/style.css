@@ -130,6 +130,11 @@ h3 {
     font-size: 20pt;
 }
 
+h4 {
+    font-family: inherit;
+    font-size: 14pt;
+}
+
 a:link {
     text-decoration: none;
 }
@@ -221,6 +226,15 @@ input[type=submit]:hover {
     top: 40px;
     left: 0;
     right: 0;
+}
+
+#accountsList{
+    float: left;
+    padding-left: 10px;
+}
+
+#accountsItems{
+    display: block;
 }
 
 #boardTitle{
@@ -328,7 +342,7 @@ li {
 .title {
     margin-left: 30px;
     margin-right: 20px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 34pt;
     color: #ffd700;
 }

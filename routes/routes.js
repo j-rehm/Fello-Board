@@ -167,7 +167,8 @@ exports.loadBoardById = (req, res) => {
                 config,
                 navBar: getNavBar(req),
                 boardName: board.name,
-                boardData: board.boardData
+                boardData: board.boardData,
+                users: board.users
             });
         } else {
             res.redirect('/welcome');
