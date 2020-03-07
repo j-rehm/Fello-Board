@@ -39,34 +39,6 @@ h2#boardTitle:hover {
     text-decoration: underline;
 }
 
-div.row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-div.board_user_row {
-    width: 102px;
-}
-p.board_user {
-    margin-top: 0;
-}
-h4#current {
-    margin-top: 18px;
-}
-h4#current,
-p.board_user,
-div.board_user_row a {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-div.board_user_row a:link,
-div.board_user_row a:visited {
-    color: red;
-}
-div.board_user_row a:active,
-div.board_user_row a:hover {
-    color: darkred;
-}
-
 #trashCan {
     vertical-align: middle;
     position: fixed;
@@ -374,6 +346,36 @@ li {
     font-size: 30pt;
     letter-spacing: 2px;
     color: #ffd700;
+}
+
+
+/* Shared Users */
+div.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+div.board_user_row {
+    width: 102px;
+}
+h4#current {
+    margin-top: 18px;
+}
+p.board_user {
+    margin-top: 0;
+}
+h4#current,
+p.board_user,
+div.board_user_row a {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+div.board_user_row a:link,
+div.board_user_row a:visited {
+    color: red;
+}
+div.board_user_row a:active,
+div.board_user_row a:hover {
+    color: darkred;
 }
 
 /* .flex_container {
