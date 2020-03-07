@@ -211,12 +211,7 @@ const setSessionBoardId = (req, boardId) => {
     };
 }
 
-// Determine if user is authenticated
+// Return the navBar object corresponding to the user's auth state
 const getNavBar = req => {
     return (req.session.user && req.session.user.isAuthenticated) ? config.authNavBar : config.unauthNavBar;
-}
-
-// Test function
-exports.test = (req, res) => {
-    
 }

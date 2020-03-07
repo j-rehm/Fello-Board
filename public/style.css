@@ -30,8 +30,13 @@ body{
     box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
 }
 
-#boardTitle{
-    max-width: 100px;
+h2#boardTitle {
+    margin-bottom: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+h2#boardTitle:hover {
+    /* color: rgb(0, 0, 0); */
+    text-decoration: underline;
 }
 
 #trashCan {
