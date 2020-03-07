@@ -261,8 +261,8 @@ const addNewCard = (e) => {
     dragDiv.appendChild(header);
     divInfo.appendChild(desc);
     
-    header.onclick = editField;
-    desc.onclick = editField;
+    header.ondblclick = editField;
+    desc.ondblclick = editField;
     
     // Adds the class tag and id to "dragDiv"
     dragDiv.classList.add('divDrag');
@@ -322,10 +322,10 @@ const addClicks = () => {
     var descs = document.getElementsByClassName("cardDesc");
 
     [].forEach.call(headers, function (header) {
-        header.onclick = editField;
+        header.ondblclick = editField;
     });
     [].forEach.call(descs, function (desc) {
-        desc.onclick = editField;
+        desc.ondblclick = editField;
     });
 }
 
