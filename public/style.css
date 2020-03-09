@@ -355,8 +355,9 @@ div.row {
     flex-direction: row;
     justify-content: space-between;
 }
-div.board_user_row {
-    width: 102px;
+div.board_user_row,
+div.accounts_list {
+    width: 100px;
 }
 h4#current {
     margin-top: 18px;

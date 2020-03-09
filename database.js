@@ -25,7 +25,6 @@ var UserAccount = mongoose.model('user_accounts', mongoose.Schema({
  * @param {string} hashed_password Hashed password of the account to be created
  */
 exports.createAccount = (full_name, username, hashed_password) => {
-    // console.log(`${full_name}, ${username}, ${hashed_password}`)
     var userAccount = new UserAccount({
         full_name,
         username,
@@ -108,9 +107,9 @@ exports.findBoard = async (id, callback) => {
 }
 
 /**
- * Finds the id of each board where username is included in users list
+ * Finds the id and name of each board where username is included in users list
  * @param {string} username Username to look for
- * @param {callback} callback Callback with list of numeric ids. To be fired when every board has been checked
+ * @param {callback} callback Callback with list of board ids and names. To be fired when every board has been checked
  */
 exports.findBoardsForUser = async (username, callback) => {
     let boards = []
@@ -161,7 +160,8 @@ exports.deleteBoard = id => {
 /**
  * Adds a username to the users list of a board
  * @param {Number} id Id of board to add username to
- * @param {string} username Username to add to the user list
+ * @param {string} username Username to add to the users list
+ * @param {callback} callback Callback with result. To be fired when function is finished
  */
 exports.addUserToBoard = (id, username, callback) => {
     this.findBoard(id, board => {
@@ -169,11 +169,17 @@ exports.addUserToBoard = (id, username, callback) => {
         users.push(username);
         Board.updateOne({ "id": id }, { $set: { "users": users } }, (err, result) => {
             handleIfError(err);
-            callback(true);
+            callback(result);
         });
     });
 };
 
+/**
+ * Removes a user from the users list of a board
+ * @param {Number} id Id of board to remove username from
+ * @param {string} username Username to remove from the users list
+ * @param {callback} callback Callback with result. To be fired when function is finished
+ */
 exports.removeUserFromBoard = (id, username, callback) => {
     this.findBoard(id, board => {
         let users = board.users;
@@ -183,7 +189,7 @@ exports.removeUserFromBoard = (id, username, callback) => {
         }
         Board.updateOne({ "id": id }, { $set: { "users": users } }, (err, result) => {
             handleIfError(err);
-            callback(true);
+            callback(result);
         });
     });
 }
